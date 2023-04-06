@@ -1,0 +1,46 @@
+﻿@model List<FindMyGym.Models.ViewModels.TablaViewModel>
+@{
+    ViewBag.Title = "Datos";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row" style="text-align:right; padding:5px;" >
+    <a href="~/Gimnasio/Nuevo" class="btn btn-primary">Nuevo</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>Id</th>
+                <th>Nombre de Categoria</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Descripcion</th>
+                <th>Precio Anual</th>
+                <th>Precio Mensual</th>
+                <th>Telefono</th>
+                <th>Sector</th>
+                <th>Imagen</th>
+            </tr>
+            @foreach (var elemento in Model)
+            {
+                <tr>
+                    <td>@elemento.ID_GIMNASIO</td>
+                    <td>@elemento.ID_CATEGORIA</td>
+                    <td>@elemento.NOMBRE_GIMNASIO</td>
+                    <td>@elemento.DIRECCION_GIMNASIO</td>
+                    <td>@elemento.DESCRIPCION_GIMNASIO</td>
+                    <td>@elemento.PRECIO_ANUAL</td>
+                    <td>@elemento.PRECIO_MENSUAL</td>
+                    <td>@elemento.TELF_GIMNASIO</td>
+                    <td>@elemento.SECTOR_GIMNASIO</td>
+                    <td>@elemento.IMAGEN_GIMNASIO</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+

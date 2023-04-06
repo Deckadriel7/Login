@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="488597dcc29b4fcb8356e5b998c00277" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_FindMyGymModel.CATEGORIA" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_FindMyGymModel.CLIENTE" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_FindMyGymModel.COMENTARIO" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_FindMyGymModel.CONTACTO" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_FindMyGymModel.GIMNASIO" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_FindMyGymModel.LOGIN" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_GIMNASIO_TIENE2_CATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_CLIENTE_TIENE1_LOGIN" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_COMENTAR_PUBLICA_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_CONTACTO_CONTACTO_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_COMENTAR_TIENE_GIMNASIO" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_FindMyGymModel.FK_CONTACTO_CONTACTO2_GIMNASIO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

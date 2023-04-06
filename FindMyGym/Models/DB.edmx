@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BD_FindMyGymModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE_CAT" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="CI_CLIENTE" />
+          </Key>
+          <Property Name="CI_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_LOGIN" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_CLI" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="APELLIDO_CLI" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="DIRECCION_CLI" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="EDAD_CLI" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TELF_CLI" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="GENERO_CLI" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="SECTOR_CLIENTE" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMENTARIO">
+          <Key>
+            <PropertyRef Name="ID_COMENTARIO" />
+          </Key>
+          <Property Name="ID_COMENTARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_GIMNASIO" Type="int" Nullable="false" />
+          <Property Name="CI_CLIENTE" Type="int" Nullable="false" />
+          <Property Name="TITULO_COMEN" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION_COMEN" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTACTO">
+          <Key>
+            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_GIMNASIO" />
+            <PropertyRef Name="ID_CONTACTO" />
+          </Key>
+          <Property Name="CI_CLIENTE" Type="int" Nullable="false" />
+          <Property Name="ID_GIMNASIO" Type="int" Nullable="false" />
+          <Property Name="ID_CONTACTO" Type="int" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" Nullable="false" />
+          <Property Name="HORA" Type="datetime" Nullable="false" />
+          <Property Name="MENSAJE" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GIMNASIO">
+          <Key>
+            <PropertyRef Name="ID_GIMNASIO" />
+          </Key>
+          <Property Name="ID_GIMNASIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CATEGORIA" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_GIMNASIO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DIRECCION_GIMANSIO" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="DESCRIPCION_GIMASIO" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PRECIO_ANUAL" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="PRECIO_MENSUAL" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="TELF_GIMNASIO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SECTOR_GIMNASIO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="IMAGEN_GIMNASIO" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOGIN">
+          <Key>
+            <PropertyRef Name="ID_LOGIN" />
+          </Key>
+          <Property Name="CORREO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CONTRASENIA" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_LOGIN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CLIENTE_TIENE1_LOGIN">
+          <End Role="LOGIN" Type="Self.LOGIN" Multiplicity="1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOGIN">
+              <PropertyRef Name="ID_LOGIN" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_LOGIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMENTAR_PUBLICA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Principal>
+            <Dependent Role="COMENTARIO">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMENTAR_TIENE_GIMNASIO">
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
+          <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIMNASIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Principal>
+            <Dependent Role="COMENTARIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_CONTACTO_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Principal>
+            <Dependent Role="CONTACTO">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_CONTACTO2_GIMNASIO">
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
+          <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIMNASIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Principal>
+            <Dependent Role="CONTACTO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GIMNASIO_TIENE2_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="GIMNASIO">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_FindMyGymModelStoreContainer">
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMENTARIO" EntityType="Self.COMENTARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTACTO" EntityType="Self.CONTACTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GIMNASIO" EntityType="Self.GIMNASIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CLIENTE_TIENE1_LOGIN" Association="Self.FK_CLIENTE_TIENE1_LOGIN">
+            <End Role="LOGIN" EntitySet="LOGIN" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMENTAR_PUBLICA_CLIENTE" Association="Self.FK_COMENTAR_PUBLICA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMENTAR_TIENE_GIMNASIO" Association="Self.FK_COMENTAR_TIENE_GIMNASIO">
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CONTACTO_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CONTACTO" EntitySet="CONTACTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_CONTACTO2_GIMNASIO" Association="Self.FK_CONTACTO_CONTACTO2_GIMNASIO">
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+            <End Role="CONTACTO" EntitySet="CONTACTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GIMNASIO_TIENE2_CATEGORI" Association="Self.FK_GIMNASIO_TIENE2_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_FindMyGymModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE_CAT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="CATEGORIA" ToRole="GIMNASIO" />
+        </EntityType>
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="CI_CLIENTE" />
+          </Key>
+          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_LOGIN" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION_CLI" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EDAD_CLI" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TELF_CLI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GENERO_CLI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SECTOR_CLIENTE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LOGIN" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="CLIENTE" ToRole="LOGIN" />
+          <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="CLIENTE" ToRole="COMENTARIO" />
+          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CONTACTO_CLIENTE" FromRole="CLIENTE" ToRole="CONTACTO" />
+        </EntityType>
+        <EntityType Name="COMENTARIO">
+          <Key>
+            <PropertyRef Name="ID_COMENTARIO" />
+          </Key>
+          <Property Name="ID_COMENTARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" />
+          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" />
+          <Property Name="TITULO_COMEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION_COMEN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="COMENTARIO" ToRole="CLIENTE" />
+          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_COMENTAR_TIENE_GIMNASIO" FromRole="COMENTARIO" ToRole="GIMNASIO" />
+        </EntityType>
+        <EntityType Name="CONTACTO">
+          <Key>
+            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_GIMNASIO" />
+            <PropertyRef Name="ID_CONTACTO" />
+          </Key>
+          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" />
+          <Property Name="ID_CONTACTO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HORA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MENSAJE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTACTO_CONTACTO_CLIENTE" FromRole="CONTACTO" ToRole="CLIENTE" />
+          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_CONTACTO_CONTACTO2_GIMNASIO" FromRole="CONTACTO" ToRole="GIMNASIO" />
+        </EntityType>
+        <EntityType Name="GIMNASIO">
+          <Key>
+            <PropertyRef Name="ID_GIMNASIO" />
+          </Key>
+          <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_GIMNASIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION_GIMANSIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION_GIMASIO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRECIO_ANUAL" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="PRECIO_MENSUAL" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="TELF_GIMNASIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SECTOR_GIMNASIO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGEN_GIMNASIO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="GIMNASIO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_TIENE_GIMNASIO" FromRole="GIMNASIO" ToRole="COMENTARIO" />
+          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CONTACTO2_GIMNASIO" FromRole="GIMNASIO" ToRole="CONTACTO" />
+        </EntityType>
+        <EntityType Name="LOGIN">
+          <Key>
+            <PropertyRef Name="ID_LOGIN" />
+          </Key>
+          <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTRASENIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_LOGIN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="LOGIN" ToRole="CLIENTE" />
+        </EntityType>
+        <Association Name="FK_GIMNASIO_TIENE2_CATEGORI">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="1" />
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="GIMNASIO">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_TIENE1_LOGIN">
+          <End Role="LOGIN" Type="Self.LOGIN" Multiplicity="1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOGIN">
+              <PropertyRef Name="ID_LOGIN" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_LOGIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMENTAR_PUBLICA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Principal>
+            <Dependent Role="COMENTARIO">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_CONTACTO_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Principal>
+            <Dependent Role="CONTACTO">
+              <PropertyRef Name="CI_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMENTAR_TIENE_GIMNASIO">
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
+          <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIMNASIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Principal>
+            <Dependent Role="COMENTARIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTACTO_CONTACTO2_GIMNASIO">
+          <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
+          <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GIMNASIO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Principal>
+            <Dependent Role="CONTACTO">
+              <PropertyRef Name="ID_GIMNASIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_FindMyGymEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="COMENTARIO" EntityType="Self.COMENTARIO" />
+          <EntitySet Name="CONTACTO" EntityType="Self.CONTACTO" />
+          <EntitySet Name="GIMNASIO" EntityType="Self.GIMNASIO" />
+          <EntitySet Name="LOGIN" EntityType="Self.LOGIN" />
+          <AssociationSet Name="FK_GIMNASIO_TIENE2_CATEGORI" Association="Self.FK_GIMNASIO_TIENE2_CATEGORI">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_TIENE1_LOGIN" Association="Self.FK_CLIENTE_TIENE1_LOGIN">
+            <End Role="LOGIN" EntitySet="LOGIN" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMENTAR_PUBLICA_CLIENTE" Association="Self.FK_COMENTAR_PUBLICA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CONTACTO_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CONTACTO" EntitySet="CONTACTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMENTAR_TIENE_GIMNASIO" Association="Self.FK_COMENTAR_TIENE_GIMNASIO">
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTACTO_CONTACTO2_GIMNASIO" Association="Self.FK_CONTACTO_CONTACTO2_GIMNASIO">
+            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+            <End Role="CONTACTO" EntitySet="CONTACTO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_FindMyGymModelStoreContainer" CdmEntityContainer="BD_FindMyGymEntities">
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="NOMBRE_CAT" ColumnName="NOMBRE_CAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
+                <ScalarProperty Name="NOMBRE_CLI" ColumnName="NOMBRE_CLI" />
+                <ScalarProperty Name="APELLIDO_CLI" ColumnName="APELLIDO_CLI" />
+                <ScalarProperty Name="DIRECCION_CLI" ColumnName="DIRECCION_CLI" />
+                <ScalarProperty Name="EDAD_CLI" ColumnName="EDAD_CLI" />
+                <ScalarProperty Name="TELF_CLI" ColumnName="TELF_CLI" />
+                <ScalarProperty Name="GENERO_CLI" ColumnName="GENERO_CLI" />
+                <ScalarProperty Name="SECTOR_CLIENTE" ColumnName="SECTOR_CLIENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMENTARIO">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.COMENTARIO">
+              <MappingFragment StoreEntitySet="COMENTARIO">
+                <ScalarProperty Name="ID_COMENTARIO" ColumnName="ID_COMENTARIO" />
+                <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
+                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="TITULO_COMEN" ColumnName="TITULO_COMEN" />
+                <ScalarProperty Name="DESCRIPCION_COMEN" ColumnName="DESCRIPCION_COMEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTACTO">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.CONTACTO">
+              <MappingFragment StoreEntitySet="CONTACTO">
+                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
+                <ScalarProperty Name="ID_CONTACTO" ColumnName="ID_CONTACTO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="HORA" ColumnName="HORA" />
+                <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GIMNASIO">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.GIMNASIO">
+              <MappingFragment StoreEntitySet="GIMNASIO">
+                <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="NOMBRE_GIMNASIO" ColumnName="NOMBRE_GIMNASIO" />
+                <ScalarProperty Name="DIRECCION_GIMANSIO" ColumnName="DIRECCION_GIMANSIO" />
+                <ScalarProperty Name="DESCRIPCION_GIMASIO" ColumnName="DESCRIPCION_GIMASIO" />
+                <ScalarProperty Name="PRECIO_ANUAL" ColumnName="PRECIO_ANUAL" />
+                <ScalarProperty Name="PRECIO_MENSUAL" ColumnName="PRECIO_MENSUAL" />
+                <ScalarProperty Name="TELF_GIMNASIO" ColumnName="TELF_GIMNASIO" />
+                <ScalarProperty Name="SECTOR_GIMNASIO" ColumnName="SECTOR_GIMNASIO" />
+                <ScalarProperty Name="IMAGEN_GIMNASIO" ColumnName="IMAGEN_GIMNASIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOGIN">
+            <EntityTypeMapping TypeName="BD_FindMyGymModel.LOGIN">
+              <MappingFragment StoreEntitySet="LOGIN">
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="CONTRASENIA" ColumnName="CONTRASENIA" />
+                <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,65 @@
+﻿@model FindMyGym.Models.ViewModels.TablaGimnasio
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Nuevo","Gimnasio",FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+
+            <div>
+                @Html.LabelFor(d => d.ID_CATEGORIA)
+                @Html.TextBoxFor(d => d.ID_CATEGORIA, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ID_CATEGORIA, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.NOMBRE_GIMNASIO)
+                @Html.TextBoxFor(d => d.NOMBRE_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.NOMBRE_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.DIRECCION_GIMNASIO)
+                @Html.TextBoxFor(d => d.DIRECCION_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.DIRECCION_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.DESCRIPCION_GIMNASIO)
+                @Html.TextBoxFor(d => d.DESCRIPCION_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.DESCRIPCION_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.PRECIO_ANUAL)
+                @Html.TextBoxFor(d => d.PRECIO_ANUAL, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.PRECIO_ANUAL, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.PRECIO_MENSUAL)
+                @Html.TextBoxFor(d => d.PRECIO_MENSUAL, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.PRECIO_MENSUAL, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TELF_GIMNASIO)
+                @Html.TextBoxFor(d => d.TELF_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TELF_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.SECTOR_GIMNASIO)
+                @Html.TextBoxFor(d => d.SECTOR_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.SECTOR_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.IMAGEN_GIMNASIO)
+                @Html.TextBoxFor(d => d.IMAGEN_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.IMAGEN_GIMNASIO, null, new { @class = "red" })
+            </div>
+
+            <div style="text-align:right">
+                <input value="Guardar" type="submit" class="btn btn-primary" />
+            </div>
+        </div>
+        </div>
+}
+
