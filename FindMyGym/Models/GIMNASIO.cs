@@ -11,7 +11,8 @@ namespace FindMyGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class GIMNASIO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +32,9 @@ namespace FindMyGym.Models
         public string TELF_GIMNASIO { get; set; }
         public string SECTOR_GIMNASIO { get; set; }
         public string IMAGEN_GIMNASIO { get; set; }
+
+        [NotMapped]
+        public string NOMBRE_CATEGORIA { get; set; }
     
         public virtual CATEGORIA CATEGORIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
