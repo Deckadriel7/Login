@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BD_FindMyGymModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BD_FindMyGymModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CATEGORIA">
           <Key>
             <PropertyRef Name="ID_CATEGORIA" />
@@ -14,9 +14,10 @@
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
-            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_CLIENTE" />
           </Key>
-          <Property Name="CI_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CI_CLIENTE" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="ID_LOGIN" Type="int" Nullable="false" />
           <Property Name="NOMBRE_CLI" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="APELLIDO_CLI" Type="varchar" MaxLength="75" Nullable="false" />
@@ -32,22 +33,21 @@
           </Key>
           <Property Name="ID_COMENTARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_GIMNASIO" Type="int" Nullable="false" />
-          <Property Name="CI_CLIENTE" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
           <Property Name="TITULO_COMEN" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DESCRIPCION_COMEN" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
-            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_CLIENTE" />
             <PropertyRef Name="ID_GIMNASIO" />
             <PropertyRef Name="ID_CONTACTO" />
           </Key>
-          <Property Name="CI_CLIENTE" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
           <Property Name="ID_GIMNASIO" Type="int" Nullable="false" />
           <Property Name="ID_CONTACTO" Type="int" Nullable="false" />
-          <Property Name="FECHA" Type="datetime" Nullable="false" />
-          <Property Name="HORA" Type="datetime" Nullable="false" />
           <Property Name="MENSAJE" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FECHA" Type="date" />
         </EntityType>
         <EntityType Name="GIMNASIO">
           <Key>
@@ -89,10 +89,10 @@
           <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENTE">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Principal>
             <Dependent Role="COMENTARIO">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -113,10 +113,10 @@
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENTE">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Principal>
             <Dependent Role="CONTACTO">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -152,7 +152,7 @@
         </Function>
         <Function Name="sp_ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
-          <Parameter Name="Contrasenia" Type="varchar" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="BD_FindMyGymModelStoreContainer">
           <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
@@ -186,7 +186,8 @@
             <End Role="GIMNASIO" EntitySet="GIMNASIO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BD_FindMyGymModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -200,9 +201,10 @@
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
-            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_CLIENTE" />
           </Key>
-          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CI_CLIENTE" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_LOGIN" Type="Int32" Nullable="false" />
           <Property Name="NOMBRE_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="APELLIDO_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
@@ -221,7 +223,7 @@
           </Key>
           <Property Name="ID_COMENTARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" />
-          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" />
           <Property Name="TITULO_COMEN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCION_COMEN" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="COMENTARIO" ToRole="CLIENTE" />
@@ -229,16 +231,15 @@
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
-            <PropertyRef Name="CI_CLIENTE" />
+            <PropertyRef Name="ID_CLIENTE" />
             <PropertyRef Name="ID_GIMNASIO" />
             <PropertyRef Name="ID_CONTACTO" />
           </Key>
-          <Property Name="CI_CLIENTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" />
           <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" />
           <Property Name="ID_CONTACTO" Type="Int32" Nullable="false" />
-          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HORA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MENSAJE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Precision="0" />
           <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTACTO_CONTACTO_CLIENTE" FromRole="CONTACTO" ToRole="CLIENTE" />
           <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_CONTACTO_CONTACTO2_GIMNASIO" FromRole="CONTACTO" ToRole="GIMNASIO" />
         </EntityType>
@@ -298,10 +299,10 @@
           <End Role="COMENTARIO" Type="Self.COMENTARIO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENTE">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Principal>
             <Dependent Role="COMENTARIO">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -310,10 +311,10 @@
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CLIENTE">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Principal>
             <Dependent Role="CONTACTO">
-              <PropertyRef Name="CI_CLIENTE" />
+              <PropertyRef Name="ID_CLIENTE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -378,11 +379,23 @@
             <Parameter Name="Registrado" Mode="InOut" Type="Boolean" />
             <Parameter Name="Mensaje" Mode="InOut" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_ValidarUsuario" ReturnType="Collection(Int32)">
+          <FunctionImport Name="sp_ValidarUsuario" ReturnType="Collection(BD_FindMyGymModel.sp_ValidarUsuario_Result)">
             <Parameter Name="Correo" Mode="In" Type="String" />
-            <Parameter Name="Contrasenia" Mode="In" Type="String" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_ValidarUsuario_Result">
+          <Property Type="Int32" Name="ID_CLIENTE" Nullable="false" />
+          <Property Type="String" Name="CI_CLIENTE" Nullable="false" MaxLength="75" />
+          <Property Type="Int32" Name="ID_LOGIN" Nullable="false" />
+          <Property Type="String" Name="NOMBRE_CLI" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="APELLIDO_CLI" Nullable="false" MaxLength="75" />
+          <Property Type="String" Name="DIRECCION_CLI" Nullable="false" MaxLength="150" />
+          <Property Type="Decimal" Name="EDAD_CLI" Nullable="false" Precision="3" Scale="0" />
+          <Property Type="String" Name="TELF_CLI" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="GENERO_CLI" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="SECTOR_CLIENTE" Nullable="false" MaxLength="250" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -400,6 +413,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
                 <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
                 <ScalarProperty Name="NOMBRE_CLI" ColumnName="NOMBRE_CLI" />
@@ -417,7 +431,7 @@
               <MappingFragment StoreEntitySet="COMENTARIO">
                 <ScalarProperty Name="ID_COMENTARIO" ColumnName="ID_COMENTARIO" />
                 <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
-                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="TITULO_COMEN" ColumnName="TITULO_COMEN" />
                 <ScalarProperty Name="DESCRIPCION_COMEN" ColumnName="DESCRIPCION_COMEN" />
               </MappingFragment>
@@ -426,12 +440,11 @@
           <EntitySetMapping Name="CONTACTO">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.CONTACTO">
               <MappingFragment StoreEntitySet="CONTACTO">
-                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
                 <ScalarProperty Name="ID_CONTACTO" ColumnName="ID_CONTACTO" />
-                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
-                <ScalarProperty Name="HORA" ColumnName="HORA" />
                 <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -461,7 +474,22 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_RegistrarUsuario" FunctionName="BD_FindMyGymModel.Store.sp_RegistrarUsuario" />
-          <FunctionImportMapping FunctionImportName="sp_ValidarUsuario" FunctionName="BD_FindMyGymModel.Store.sp_ValidarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_ValidarUsuario" FunctionName="BD_FindMyGymModel.Store.sp_ValidarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_FindMyGymModel.sp_ValidarUsuario_Result">
+                <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
+                <ScalarProperty Name="CI_CLIENTE" ColumnName="CI_CLIENTE" />
+                <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
+                <ScalarProperty Name="NOMBRE_CLI" ColumnName="NOMBRE_CLI" />
+                <ScalarProperty Name="APELLIDO_CLI" ColumnName="APELLIDO_CLI" />
+                <ScalarProperty Name="DIRECCION_CLI" ColumnName="DIRECCION_CLI" />
+                <ScalarProperty Name="EDAD_CLI" ColumnName="EDAD_CLI" />
+                <ScalarProperty Name="TELF_CLI" ColumnName="TELF_CLI" />
+                <ScalarProperty Name="GENERO_CLI" ColumnName="GENERO_CLI" />
+                <ScalarProperty Name="SECTOR_CLIENTE" ColumnName="SECTOR_CLIENTE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

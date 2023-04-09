@@ -47,17 +47,17 @@ namespace FindMyGym.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarUsuario", correoParameter, claveParameter, registrado, mensaje);
         }
     
-        public virtual ObjectResult<Nullable<int>> sp_ValidarUsuario(string correo, string contrasenia)
+        public virtual ObjectResult<sp_ValidarUsuario_Result> sp_ValidarUsuario(string correo, string clave)
         {
             var correoParameter = correo != null ?
                 new ObjectParameter("Correo", correo) :
                 new ObjectParameter("Correo", typeof(string));
     
-            var contraseniaParameter = contrasenia != null ?
-                new ObjectParameter("Contrasenia", contrasenia) :
-                new ObjectParameter("Contrasenia", typeof(string));
+            var claveParameter = clave != null ?
+                new ObjectParameter("Clave", clave) :
+                new ObjectParameter("Clave", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ValidarUsuario", correoParameter, contraseniaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ValidarUsuario_Result>("sp_ValidarUsuario", correoParameter, claveParameter);
         }
     }
 }

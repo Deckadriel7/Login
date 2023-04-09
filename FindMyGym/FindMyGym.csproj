@@ -134,38 +134,41 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\bd.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bd.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bd.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bd.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\CATEGORIA.cs">
-      <DependentUpon>DB.tt</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CLIENTE.cs">
-      <DependentUpon>DB.tt</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMENTARIO.cs">
-      <DependentUpon>DB.tt</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTACTO.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.edmx</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GIMNASIO.cs">
-      <DependentUpon>DB.tt</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LOGIN.cs">
-      <DependentUpon>DB.tt</DependentUpon>
+      <DependentUpon>bd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ValidarUsuario_Result.cs">
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\TablaGimnasio.cs" />
     <Compile Include="Models\ViewModels\TablaViewModel.cs" />
@@ -193,15 +196,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DB.Context.tt">
+    <Content Include="Models\bd.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DB.edmx</DependentUpon>
-      <LastGenOutput>DB.Context.cs</LastGenOutput>
+      <DependentUpon>bd.edmx</DependentUpon>
+      <LastGenOutput>bd.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DB.tt">
+    <Content Include="Models\bd.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DB.edmx</DependentUpon>
-      <LastGenOutput>DB.cs</LastGenOutput>
+      <DependentUpon>bd.edmx</DependentUpon>
+      <LastGenOutput>bd.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -209,12 +212,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\DB.edmx">
+    <EntityDeploy Include="Models\bd.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DB.Designer.cs</LastGenOutput>
+      <LastGenOutput>bd.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DB.edmx.diagram">
-      <DependentUpon>DB.edmx</DependentUpon>
+    <Content Include="Models\bd.edmx.diagram">
+      <DependentUpon>bd.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

@@ -21,7 +21,8 @@ namespace FindMyGym.Models
             this.CONTACTO = new HashSet<CONTACTO>();
         }
     
-        public int CI_CLIENTE { get; set; }
+        public int ID_CLIENTE { get; set; }
+        public string CI_CLIENTE { get; set; }
         public int ID_LOGIN { get; set; }
         public string NOMBRE_CLI { get; set; }
         public string APELLIDO_CLI { get; set; }

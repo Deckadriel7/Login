@@ -16,7 +16,7 @@ namespace FindMyGym.Models
     {
         public int ID_COMENTARIO { get; set; }
         public int ID_GIMNASIO { get; set; }
-        public int CI_CLIENTE { get; set; }
+        public int ID_CLIENTE { get; set; }
         public string TITULO_COMEN { get; set; }
         public string DESCRIPCION_COMEN { get; set; }
     

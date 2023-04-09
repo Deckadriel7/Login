@@ -81,7 +81,7 @@ namespace FindMyGym.Controllers
             {
                 SqlCommand cmd = new SqlCommand("sp_ValidarUsuario", cn);
                 cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
-                cmd.Parameters.AddWithValue("Contrasenia", oUsuario.Clave);
+                cmd.Parameters.AddWithValue("Clave", oUsuario.Clave);
 
                 cmd.CommandType = CommandType.StoredProcedure;
 

@@ -10,17 +10,18 @@
 namespace FindMyGym.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CONTACTO
+    public partial class sp_ValidarUsuario_Result
     {
         public int ID_CLIENTE { get; set; }
-        public int ID_GIMNASIO { get; set; }
-        public int ID_CONTACTO { get; set; }
-        public string MENSAJE { get; set; }
-        public Nullable<System.DateTime> FECHA { get; set; }
-    
-        public virtual CLIENTE CLIENTE { get; set; }
-        public virtual GIMNASIO GIMNASIO { get; set; }
+        public string CI_CLIENTE { get; set; }
+        public int ID_LOGIN { get; set; }
+        public string NOMBRE_CLI { get; set; }
+        public string APELLIDO_CLI { get; set; }
+        public string DIRECCION_CLI { get; set; }
+        public decimal EDAD_CLI { get; set; }
+        public string TELF_CLI { get; set; }
+        public string GENERO_CLI { get; set; }
+        public string SECTOR_CLIENTE { get; set; }
     }
 }
