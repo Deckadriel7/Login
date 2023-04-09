@@ -26,5 +26,12 @@ namespace FindMyGym.Controllers
 
             return View();
         }
+        public ActionResult CerrarSesion()
+        {
+            Session["usuario"] = null;
+            return RedirectToAction("Login", "Acceso");
+
+            
+        }
     }
 }

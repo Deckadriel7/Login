@@ -12,6 +12,8 @@ namespace FindMyGym.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BD_FindMyGymEntities : DbContext
     {
@@ -31,5 +33,31 @@ namespace FindMyGym.Models
         public virtual DbSet<CONTACTO> CONTACTO { get; set; }
         public virtual DbSet<GIMNASIO> GIMNASIO { get; set; }
         public virtual DbSet<LOGIN> LOGIN { get; set; }
+    
+        public virtual int sp_RegistrarUsuario(string correo, string clave, ObjectParameter registrado, ObjectParameter mensaje)
+        {
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var claveParameter = clave != null ?
+                new ObjectParameter("Clave", clave) :
+                new ObjectParameter("Clave", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarUsuario", correoParameter, claveParameter, registrado, mensaje);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_ValidarUsuario(string correo, string contrasenia)
+        {
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            var contraseniaParameter = contrasenia != null ?
+                new ObjectParameter("Contrasenia", contrasenia) :
+                new ObjectParameter("Contrasenia", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ValidarUsuario", correoParameter, contraseniaParameter);
+        }
     }
 }
