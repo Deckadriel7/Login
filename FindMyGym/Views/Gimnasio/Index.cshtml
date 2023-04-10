@@ -22,7 +22,7 @@
                 <th>Precio Mensual</th>
                 <th>Telefono</th>
                 <th>Sector</th>
-                <th>Imagen</th>
+               
                 <th></th>
             </tr>
             @foreach (var elemento in Model)
@@ -37,7 +37,7 @@
                     <td>@elemento.PRECIO_MENSUAL</td>
                     <td>@elemento.TELF_GIMNASIO</td>
                     <td>@elemento.SECTOR_GIMNASIO</td>
-                    <td>@elemento.IMAGEN_GIMNASIO</td>
+                  
                     <td>
                         <a class="btn btn-primary" href="~/Gimnasio/Editar/@elemento.ID_GIMNASIO">Editar</a>
                         <a class="btn btn-danger" href="~/Gimnasio/Eliminar/@elemento.ID_GIMNASIO">Eliminar</a>
