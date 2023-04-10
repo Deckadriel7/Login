@@ -42,11 +42,14 @@ namespace FindMyGym.Controllers
             }
                 return View(lst);
         }
-        public ActionResult Nuevo()
+        public ActionResult Nuevo(TablaGimnasio model, string nouso)
         {
-           
-
-            return View();
+            using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
+            {
+                var QueryCategorias = db.CATEGORIA.Select(c => c);
+                model.listaCategorias = new SelectList(QueryCategorias.ToList(), "ID_CATEGORIA", "NOMBRE_CAT");
+            }
+            return View(model);
         }
 
         [HttpPost]
@@ -59,6 +62,7 @@ namespace FindMyGym.Controllers
                     using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
                     {
                        
+
                         var tabla = new GIMNASIO();
                         tabla.ID_CATEGORIA = model.ID_CATEGORIA;
                         tabla.NOMBRE_GIMNASIO = model.NOMBRE_GIMNASIO;

@@ -1,6 +1,7 @@
 ﻿@model FindMyGym.Models.ViewModels.TablaGimnasio
 @{
     ViewBag.Title = "Nuevo";
+    
 }
 
 <h2>@ViewBag.Title</h2>
@@ -12,7 +13,7 @@
 
             <div>
                 @Html.LabelFor(d => d.ID_CATEGORIA)
-                @Html.TextBoxFor(d => d.ID_CATEGORIA, "", new { @class = "form-control" })
+                @Html.DropDownListFor(d => d.ID_CATEGORIA, Model.listaCategorias, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.ID_CATEGORIA, null, new { @class = "red" })
             </div>
             <div>
@@ -23,6 +24,7 @@
             <div>
                 @Html.LabelFor(d => d.DIRECCION_GIMNASIO)
                 @Html.TextBoxFor(d => d.DIRECCION_GIMNASIO, "", new { @class = "form-control" })
+              
                 @Html.ValidationMessageFor(d => d.DIRECCION_GIMNASIO, null, new { @class = "red" })
             </div>
             <div>

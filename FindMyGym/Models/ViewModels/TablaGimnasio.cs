@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FindMyGym.Models.ViewModels
 {
@@ -43,5 +44,7 @@ namespace FindMyGym.Models.ViewModels
         [StringLength(300)]
         [Display(Name = "Imagen")]
         public string IMAGEN_GIMNASIO { get; set; }
+
+        public SelectList listaCategorias { get; set; }
     }
 }
