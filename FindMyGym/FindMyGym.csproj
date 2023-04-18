@@ -171,8 +171,10 @@
     <Compile Include="Models\sp_ValidarUsuario_Result.cs">
       <DependentUpon>bd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\TablaCliente.cs" />
     <Compile Include="Models\ViewModels\TablaGimnasio.cs" />
     <Compile Include="Models\ViewModels\TablaViewModel.cs" />
+    <Compile Include="Models\ViewModels\tablaViewModel1.cs" />
     <Compile Include="Models\ViewModels\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -27,7 +27,7 @@ namespace FindMyGym.Models
         public string NOMBRE_CLI { get; set; }
         public string APELLIDO_CLI { get; set; }
         public string DIRECCION_CLI { get; set; }
-        public Nullable<int> EDAD_CLI { get; set; }
+        public int EDAD_CLI { get; set; }
         public string TELF_CLI { get; set; }
         public string GENERO_CLI { get; set; }
         public string SECTOR_CLI { get; set; }

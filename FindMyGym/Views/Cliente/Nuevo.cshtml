@@ -1,15 +1,15 @@
-﻿
+﻿@model FindMyGym.Models.ViewModels.TablaCliente
 @{
     ViewBag.Title = "Nuevo";
 }
 
-<h2>Nuevo</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Nuevo", "Cliente", FormMethod.Post))
 {
     <div class="row">
         <div class="col-md-12">
-          
+
 
             <div>
                 @Html.LabelFor(d => d.CI_CLIENTE)
