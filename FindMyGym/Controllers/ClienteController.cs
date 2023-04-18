@@ -10,7 +10,7 @@ namespace FindMyGym.Controllers
 {
     public class ClienteController : Controller
     {
-        // GET: Cliente
+        // GET: Clientesdsd
         public ActionResult Index()
         {
             return View();
