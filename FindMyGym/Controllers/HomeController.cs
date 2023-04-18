@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
     public class HomeController : Controller
     {
+        [ValidarSesion]
         public ActionResult Index()
         {
             return View();
@@ -31,7 +33,7 @@ namespace FindMyGym.Controllers
             Session["usuario"] = null;
             return RedirectToAction("Login", "Acceso");
 
-            
+           
         }
     }
 }

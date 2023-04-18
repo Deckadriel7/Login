@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\GimnasioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -172,10 +173,12 @@
       <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\TablaCliente.cs" />
+    <Compile Include="Models\ViewModels\TablaContacto.cs" />
     <Compile Include="Models\ViewModels\TablaGimnasio.cs" />
     <Compile Include="Models\ViewModels\TablaViewModel.cs" />
     <Compile Include="Models\ViewModels\tablaViewModel1.cs" />
     <Compile Include="Models\ViewModels\Usuario.cs" />
+    <Compile Include="Permisos\ValidarSessionAtribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +258,8 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Cliente\Nuevo.cshtml" />
     <Content Include="Views\Cliente\Editar.cshtml" />
+    <Content Include="Views\Contacto\Index.cshtml" />
+    <Content Include="Views\Contacto\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

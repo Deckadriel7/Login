@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
+    [ValidarSesion]
     public class ClienteController : Controller
     {
         // GET: Clientes

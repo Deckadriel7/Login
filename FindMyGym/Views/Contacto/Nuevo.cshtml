@@ -9,16 +9,26 @@
 {
     <div class="row">
         <div class="col-md-12">
+            <script>
+                $(function () {
+                    $('.datepicker').datepicker({
+                        dateFormat: 'dd/mm/yy' // Formato de fecha
+                    });
+                });
+            </script>
+            <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 
             <div>
                 @Html.LabelFor(d => d.ID_CLIENTE)
-                @Html.TextBoxFor(d => d.ID_CLIENTE, "", new { @class = "form-control" })
+                @Html.DropDownListFor(d => d.ID_CLIENTE, Model.ListaCliente, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.ID_CLIENTE, null, new { @class = "red" })
             </div>
             <div>
                 @Html.LabelFor(d => d.ID_GIMNASIO)
-                @Html.TextBoxFor(d => d.ID_GIMNASIO, "", new { @class = "form-control" })
+                @Html.DropDownListFor(d => d.ID_GIMNASIO, Model.ListaGimnasio, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.ID_GIMNASIO, null, new { @class = "red" })
             </div>
             <div>
@@ -28,9 +38,11 @@
             </div>
             <div>
                 @Html.LabelFor(d => d.FECHA)
-                @Html.TextBoxFor(d => d.FECHA, "", new { @class = "form-control" })
+                @Html.EditorFor(d => d.FECHA, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessageFor(d => d.FECHA, null, new { @class = "red" })
             </div>
+
+
             <div style="text-align:right">
                 <input value="Guardar" type="submit" class="btn btn-primary" />
             </div>

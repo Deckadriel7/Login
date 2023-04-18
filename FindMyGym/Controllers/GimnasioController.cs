@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using FindMyGym.Models;
 using FindMyGym.Models.ViewModels;
+using Login.Permisos;
 using WebGrease;
 
 namespace FindMyGym.Controllers
 {
     public class GimnasioController : Controller
     {
+        [ValidarSesion]
         // GET: Gimnasio
         public ActionResult Index()
         {

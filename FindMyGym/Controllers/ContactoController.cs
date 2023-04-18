@@ -6,10 +6,13 @@ using System.Web.Mvc;
 using FindMyGym.Controllers;
 using FindMyGym.Models;
 using FindMyGym.Models.ViewModels;
+using Login.Permisos;
+
 namespace FindMyGym.Controllers
 {
     public class ContactoController : Controller
     {
+        [ValidarSesion]
         // GET: Contactoa
         public ActionResult Index()
         {
@@ -46,6 +49,9 @@ namespace FindMyGym.Controllers
             {
                 var QueryGimnasio = db.GIMNASIO.Select(c => c);
                 model.ListaGimnasio = new SelectList(QueryGimnasio.ToList(), "ID_GIMNASIO", "NOMBRE_GIMNASIO");
+
+                var QueryCliente = db.CLIENTE.Select(c => c);
+                model.ListaCliente = new SelectList(QueryCliente.ToList(), "ID_CLIENTE", "NOMBRE_CLI");
 
             };
 

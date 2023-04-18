@@ -10,9 +10,11 @@ using System.Security.Cryptography;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.Entity;
+using Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
+    
     public class AccesoController : Controller
     {
         BD_FindMyGymEntities bd = new BD_FindMyGymEntities();
