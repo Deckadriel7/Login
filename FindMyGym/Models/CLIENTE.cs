@@ -27,10 +27,10 @@ namespace FindMyGym.Models
         public string NOMBRE_CLI { get; set; }
         public string APELLIDO_CLI { get; set; }
         public string DIRECCION_CLI { get; set; }
-        public decimal EDAD_CLI { get; set; }
+        public Nullable<int> EDAD_CLI { get; set; }
         public string TELF_CLI { get; set; }
         public string GENERO_CLI { get; set; }
-        public string SECTOR_CLIENTE { get; set; }
+        public string SECTOR_CLI { get; set; }
     
         public virtual LOGIN LOGIN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -22,10 +22,10 @@
           <Property Name="NOMBRE_CLI" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="APELLIDO_CLI" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="DIRECCION_CLI" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="EDAD_CLI" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="EDAD_CLI" Type="int" />
           <Property Name="TELF_CLI" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="GENERO_CLI" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="SECTOR_CLIENTE" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="SECTOR_CLI" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="COMENTARIO">
           <Key>
@@ -39,15 +39,13 @@
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
-            <PropertyRef Name="ID_CLIENTE" />
-            <PropertyRef Name="ID_GIMNASIO" />
             <PropertyRef Name="ID_CONTACTO" />
           </Key>
           <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
           <Property Name="ID_GIMNASIO" Type="int" Nullable="false" />
-          <Property Name="ID_CONTACTO" Type="int" Nullable="false" />
+          <Property Name="ID_CONTACTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
           <Property Name="MENSAJE" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="FECHA" Type="date" />
         </EntityType>
         <EntityType Name="GIMNASIO">
           <Key>
@@ -108,7 +106,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTACTO_CONTACTO_CLIENTE">
+        <Association Name="FK_CONTACTO_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -120,7 +118,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTACTO_CONTACTO2_GIMNASIO">
+        <Association Name="FK_CONTACTO_GIMNASIO">
           <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -173,11 +171,11 @@
             <End Role="GIMNASIO" EntitySet="GIMNASIO" />
             <End Role="COMENTARIO" EntitySet="COMENTARIO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTACTO_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CONTACTO_CLIENTE">
+          <AssociationSet Name="FK_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="CONTACTO" EntitySet="CONTACTO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTACTO_CONTACTO2_GIMNASIO" Association="Self.FK_CONTACTO_CONTACTO2_GIMNASIO">
+          <AssociationSet Name="FK_CONTACTO_GIMNASIO" Association="Self.FK_CONTACTO_GIMNASIO">
             <End Role="GIMNASIO" EntitySet="GIMNASIO" />
             <End Role="CONTACTO" EntitySet="CONTACTO" />
           </AssociationSet>
@@ -209,13 +207,13 @@
           <Property Name="NOMBRE_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="APELLIDO_CLI" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DIRECCION_CLI" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EDAD_CLI" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="EDAD_CLI" Type="Int32" />
           <Property Name="TELF_CLI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GENERO_CLI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SECTOR_CLIENTE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SECTOR_CLI" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="LOGIN" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="CLIENTE" ToRole="LOGIN" />
           <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="CLIENTE" ToRole="COMENTARIO" />
-          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CONTACTO_CLIENTE" FromRole="CLIENTE" ToRole="CONTACTO" />
+          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CLIENTE" FromRole="CLIENTE" ToRole="CONTACTO" />
         </EntityType>
         <EntityType Name="COMENTARIO">
           <Key>
@@ -231,17 +229,15 @@
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
-            <PropertyRef Name="ID_CLIENTE" />
-            <PropertyRef Name="ID_GIMNASIO" />
             <PropertyRef Name="ID_CONTACTO" />
           </Key>
           <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" />
           <Property Name="ID_GIMNASIO" Type="Int32" Nullable="false" />
-          <Property Name="ID_CONTACTO" Type="Int32" Nullable="false" />
+          <Property Name="ID_CONTACTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MENSAJE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FECHA" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTACTO_CONTACTO_CLIENTE" FromRole="CONTACTO" ToRole="CLIENTE" />
-          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_CONTACTO_CONTACTO2_GIMNASIO" FromRole="CONTACTO" ToRole="GIMNASIO" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CONTACTO_CLIENTE" FromRole="CONTACTO" ToRole="CLIENTE" />
+          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_CONTACTO_GIMNASIO" FromRole="CONTACTO" ToRole="GIMNASIO" />
         </EntityType>
         <EntityType Name="GIMNASIO">
           <Key>
@@ -259,7 +255,7 @@
           <Property Name="IMAGEN_GIMNASIO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="GIMNASIO" ToRole="CATEGORIA" />
           <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_TIENE_GIMNASIO" FromRole="GIMNASIO" ToRole="COMENTARIO" />
-          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CONTACTO2_GIMNASIO" FromRole="GIMNASIO" ToRole="CONTACTO" />
+          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_GIMNASIO" FromRole="GIMNASIO" ToRole="CONTACTO" />
         </EntityType>
         <EntityType Name="LOGIN">
           <Key>
@@ -306,7 +302,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTACTO_CONTACTO_CLIENTE">
+        <Association Name="FK_CONTACTO_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CONTACTO_CONTACTO2_GIMNASIO">
+        <Association Name="FK_CONTACTO_GIMNASIO">
           <End Role="GIMNASIO" Type="Self.GIMNASIO" Multiplicity="1" />
           <End Role="CONTACTO" Type="Self.CONTACTO" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,7 +357,7 @@
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="COMENTARIO" EntitySet="COMENTARIO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTACTO_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CONTACTO_CLIENTE">
+          <AssociationSet Name="FK_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="CONTACTO" EntitySet="CONTACTO" />
           </AssociationSet>
@@ -369,7 +365,7 @@
             <End Role="GIMNASIO" EntitySet="GIMNASIO" />
             <End Role="COMENTARIO" EntitySet="COMENTARIO" />
           </AssociationSet>
-          <AssociationSet Name="FK_CONTACTO_CONTACTO2_GIMNASIO" Association="Self.FK_CONTACTO_CONTACTO2_GIMNASIO">
+          <AssociationSet Name="FK_CONTACTO_GIMNASIO" Association="Self.FK_CONTACTO_GIMNASIO">
             <End Role="GIMNASIO" EntitySet="GIMNASIO" />
             <End Role="CONTACTO" EntitySet="CONTACTO" />
           </AssociationSet>
@@ -391,10 +387,10 @@
           <Property Type="String" Name="NOMBRE_CLI" Nullable="false" MaxLength="75" />
           <Property Type="String" Name="APELLIDO_CLI" Nullable="false" MaxLength="75" />
           <Property Type="String" Name="DIRECCION_CLI" Nullable="false" MaxLength="150" />
-          <Property Type="Decimal" Name="EDAD_CLI" Nullable="false" Precision="3" Scale="0" />
+          <Property Type="Int32" Name="EDAD_CLI" Nullable="true" />
           <Property Type="String" Name="TELF_CLI" Nullable="false" MaxLength="15" />
           <Property Type="String" Name="GENERO_CLI" Nullable="false" MaxLength="25" />
-          <Property Type="String" Name="SECTOR_CLIENTE" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="SECTOR_CLI" Nullable="false" MaxLength="250" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -422,7 +418,7 @@
                 <ScalarProperty Name="EDAD_CLI" ColumnName="EDAD_CLI" />
                 <ScalarProperty Name="TELF_CLI" ColumnName="TELF_CLI" />
                 <ScalarProperty Name="GENERO_CLI" ColumnName="GENERO_CLI" />
-                <ScalarProperty Name="SECTOR_CLIENTE" ColumnName="SECTOR_CLIENTE" />
+                <ScalarProperty Name="SECTOR_CLI" ColumnName="SECTOR_CLI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -443,8 +439,8 @@
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
                 <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
                 <ScalarProperty Name="ID_CONTACTO" ColumnName="ID_CONTACTO" />
-                <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
                 <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="MENSAJE" ColumnName="MENSAJE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -486,7 +482,7 @@
                 <ScalarProperty Name="EDAD_CLI" ColumnName="EDAD_CLI" />
                 <ScalarProperty Name="TELF_CLI" ColumnName="TELF_CLI" />
                 <ScalarProperty Name="GENERO_CLI" ColumnName="GENERO_CLI" />
-                <ScalarProperty Name="SECTOR_CLIENTE" ColumnName="SECTOR_CLIENTE" />
+                <ScalarProperty Name="SECTOR_CLI" ColumnName="SECTOR_CLI" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

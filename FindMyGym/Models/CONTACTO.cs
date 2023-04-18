@@ -17,8 +17,8 @@ namespace FindMyGym.Models
         public int ID_CLIENTE { get; set; }
         public int ID_GIMNASIO { get; set; }
         public int ID_CONTACTO { get; set; }
+        public System.DateTime FECHA { get; set; }
         public string MENSAJE { get; set; }
-        public Nullable<System.DateTime> FECHA { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual GIMNASIO GIMNASIO { get; set; }
