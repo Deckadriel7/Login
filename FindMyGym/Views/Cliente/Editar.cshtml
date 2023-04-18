@@ -1,6 +1,54 @@
-﻿
+﻿@model FindMyGym.Models.ViewModels.TablaCliente
 @{
     ViewBag.Title = "Editar";
 }
-<h2>Editar</h2>
 
+<h2>Editar</h2>
+@using (Html.BeginForm("Editar", "Cliente", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div>
+                @Html.LabelFor(d => d.CI_CLIENTE)
+                @Html.TextBoxFor(d => d.CI_CLIENTE, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.CI_CLIENTE, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.NOMBRE_CLI)
+                @Html.TextBoxFor(d => d.NOMBRE_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.NOMBRE_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.DIRECCION_CLI)
+                @Html.TextBoxFor(d => d.DIRECCION_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.DIRECCION_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.EDAD_CLI)
+                @Html.TextBoxFor(d => d.EDAD_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.EDAD_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TELF_CLI)
+                @Html.TextBoxFor(d => d.TELF_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TELF_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.GENERO_CLI)
+                @Html.TextBoxFor(d => d.GENERO_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.GENERO_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.SECTOR_CLI)
+                @Html.TextBoxFor(d => d.SECTOR_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.SECTOR_CLI, null, new { @class = "red" })
+            </div>
+
+            <div style="text-align:right">
+                <input value="Guardar" type="submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

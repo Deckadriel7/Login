@@ -8,7 +8,7 @@ namespace FindMyGym.Models.ViewModels
 {
     public class TablaCliente
     {
-        //sf
+        //s
         public int ID_CLIENTE { get; set; }
         [Required]
         [StringLength(10)]
