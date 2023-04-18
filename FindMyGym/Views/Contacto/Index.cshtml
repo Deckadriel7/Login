@@ -1,0 +1,36 @@
+﻿@model List<FindMyGym.Models.ViewModels.TablaContacto>
+@{
+    ViewBag.Title = "Contacto";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row" style="text-align right" padding:5px>
+    <a href="~/Contacto/Nuevo" class="btn btn-primary">Nuevo</a>
+    <div class="col-md-12">
+
+        <table class="table">
+
+            <tr>
+                <th>Id</th>
+                <th>Nombre del Gimnasio</th>
+                <th>Nombre del Cliente</th>
+                <th>Apellido del Cliente</th>
+                <th>Mensaje</th>
+                <th>Fecha</th>
+                <th></th>
+            </tr>
+            @foreach (var elemento in Model)
+            {
+                <tr>
+                    <td>@elemento.ID_CONTACTO</td>
+                    <td>@elemento.NombreGimnasio</td>
+                    <td>@elemento.NombreCliente</td>
+                    <td>@elemento.NombreApellido</td>
+                    <td>@elemento.MENSAJE</td>
+                    <td>@elemento.FECHA</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

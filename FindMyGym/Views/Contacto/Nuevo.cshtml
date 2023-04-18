@@ -1,0 +1,38 @@
+﻿@model FindMyGym.Models.ViewModels.TablaContacto
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Nuevo", "Contacto", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+
+            <div>
+                @Html.LabelFor(d => d.ID_CLIENTE)
+                @Html.TextBoxFor(d => d.ID_CLIENTE, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ID_CLIENTE, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.ID_GIMNASIO)
+                @Html.TextBoxFor(d => d.ID_GIMNASIO, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ID_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.MENSAJE)
+                @Html.TextBoxFor(d => d.MENSAJE, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.MENSAJE, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.FECHA)
+                @Html.TextBoxFor(d => d.FECHA, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.FECHA, null, new { @class = "red" })
+            </div>
+            <div style="text-align:right">
+                <input value="Guardar" type="submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
