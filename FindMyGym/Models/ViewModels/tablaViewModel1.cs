@@ -19,5 +19,6 @@ namespace FindMyGym.Models.ViewModels
         public string TELF_CLI { get; set; }
         public string GENERO_CLI { get; set; }
         public string SECTOR_CLI { get; set; }
+        public string NOMBRE_USUARIO { get; set; }
     }
 }

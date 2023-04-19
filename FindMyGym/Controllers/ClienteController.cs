@@ -33,22 +33,22 @@ namespace FindMyGym.Controllers
                            SECTOR_CLI = d.SECTOR_CLI,
 
                        }).ToList();
-                /*
+
                 foreach (var item in lst)
                 {
-                    item.NOMBRE_CLI = db..Where(d => d.ID_CATEGORIA == item.ID_CATEGORIA).SingleOrDefault().NOMBRE_CAT;
+                    item.NOMBRE_USUARIO = db.ACCESO.Where(d => d.ID_LOGIN == item.ID_LOGIN).SingleOrDefault().CORREO;
                 }
-                */
+                
             }
             return View(lst);
           
         }
-        public ActionResult Nuevo()
+        public ActionResult Nuevo(TablaCliente model, string nouso)
         {
-
-
+          
             return View();
         }
+
 
         [HttpPost]
         public ActionResult Nuevo(TablaCliente model)
@@ -57,11 +57,11 @@ namespace FindMyGym.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    
                     using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
                     {
                         var tabla = new CLIENTE();
-                        tabla.ID_CLIENTE = model.ID_CLIENTE;
-                        tabla.CI_CLIENTE = model.CI_CLIENTE;
+                        tabla.CI_CLIENTE = model.CI_CLIENTE;                      
                         tabla.ID_LOGIN = model.ID_LOGIN;
                         tabla.NOMBRE_CLI = model.NOMBRE_CLI;
                         tabla.APELLIDO_CLI = model.APELLIDO_CLI;
@@ -70,6 +70,8 @@ namespace FindMyGym.Controllers
                         tabla.TELF_CLI = model.TELF_CLI;
                         tabla.GENERO_CLI = model.GENERO_CLI;
                         tabla.SECTOR_CLI = model.SECTOR_CLI;
+                    
+  
                         db.CLIENTE.Add(tabla);
                         db.SaveChanges();
 
@@ -147,7 +149,10 @@ namespace FindMyGym.Controllers
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
                 var tabla = db.CLIENTE.Find(Id);
+                int idLogin = tabla.ID_LOGIN;
+                var tablaL = db.ACCESO.Find(idLogin);
                 db.CLIENTE.Remove(tabla);
+                db.ACCESO.Remove(tablaL);
                 db.SaveChanges();
             }
             return Redirect("~/Cliente/"); 

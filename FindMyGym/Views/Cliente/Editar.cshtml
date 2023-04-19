@@ -9,7 +9,8 @@
     <div class="row">
         <div class="col-md-12">
 
-
+            @Html.HiddenFor(d => d.ID_LOGIN)
+            @Html.HiddenFor(d => d.ID_CLIENTE)
             <div>
                 @Html.LabelFor(d => d.CI_CLIENTE)
                 @Html.TextBoxFor(d => d.CI_CLIENTE, "", new { @class = "form-control" })
@@ -19,6 +20,11 @@
                 @Html.LabelFor(d => d.NOMBRE_CLI)
                 @Html.TextBoxFor(d => d.NOMBRE_CLI, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.NOMBRE_CLI, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.APELLIDO_CLI)
+                @Html.TextBoxFor(d => d.APELLIDO_CLI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.APELLIDO_CLI, null, new { @class = "red" })
             </div>
             <div>
                 @Html.LabelFor(d => d.DIRECCION_CLI)

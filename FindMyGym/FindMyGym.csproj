@@ -130,11 +130,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ComentarioController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\GimnasioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACCESO.cs">
+      <DependentUpon>bd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\bd.Context.cs">
       <AutoGen>True</AutoGen>
@@ -166,17 +170,13 @@
     <Compile Include="Models\GIMNASIO.cs">
       <DependentUpon>bd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LOGIN.cs">
-      <DependentUpon>bd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_ValidarUsuario_Result.cs">
-      <DependentUpon>bd.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModels\TablaCliente.cs" />
+    <Compile Include="Models\ViewModels\TablaComentario.cs" />
     <Compile Include="Models\ViewModels\TablaContacto.cs" />
     <Compile Include="Models\ViewModels\TablaGimnasio.cs" />
     <Compile Include="Models\ViewModels\TablaViewModel.cs" />
     <Compile Include="Models\ViewModels\tablaViewModel1.cs" />
+    <Compile Include="Models\ViewModels\tablaViewModel2.cs" />
     <Compile Include="Models\ViewModels\Usuario.cs" />
     <Compile Include="Permisos\ValidarSessionAtribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +202,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagenes\LOGO.png" />
     <Content Include="Models\bd.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>bd.edmx</DependentUpon>
@@ -260,6 +261,9 @@
     <Content Include="Views\Cliente\Editar.cshtml" />
     <Content Include="Views\Contacto\Index.cshtml" />
     <Content Include="Views\Contacto\Nuevo.cshtml" />
+    <Content Include="Views\Comentario\Index.cshtml" />
+    <Content Include="Views\Comentario\Nuevo.cshtml" />
+    <Content Include="Views\Comentario\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

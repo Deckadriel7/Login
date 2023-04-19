@@ -12,7 +12,7 @@ namespace FindMyGym.Models.ViewModels
         public int ID_GIMNASIO { get; set; }
         
         [Required]
-        [Display(Name = "Nombre de Categoria")]
+        [Display(Name = "Nombre de Categoría")]
         public int ID_CATEGORIA { get; set; }
         [Required]
         [StringLength(100)]

@@ -12,10 +12,10 @@ namespace FindMyGym.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LOGIN
+    public partial class ACCESO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOGIN()
+        public ACCESO()
         {
             this.CLIENTE = new HashSet<CLIENTE>();
         }

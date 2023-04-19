@@ -109,7 +109,13 @@ namespace FindMyGym.Controllers
                 model.SECTOR_GIMNASIO = tabla.SECTOR_GIMNASIO;        
                 model.IMAGEN_GIMNASIO = tabla.IMAGEN_GIMNASIO;        
             }
-                return View(model);
+            using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
+            {
+                var QueryCategorias = db.CATEGORIA.Select(c => c);
+                model.listaCategorias = new SelectList(QueryCategorias.ToList(), "ID_CATEGORIA", "NOMBRE_CAT");
+            }
+          
+            return View(model);
         }
 
         [HttpPost]

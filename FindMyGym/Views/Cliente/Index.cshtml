@@ -1,9 +1,9 @@
 ﻿@model List<FindMyGym.Models.ViewModels.tablaViewModel1>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Información Cliente";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="row" style="text-align:right; padding:5px;">
     <a href="~/Cliente/Nuevo" class="btn btn-primary">Nuevo</a>
@@ -13,15 +13,14 @@
     <div class="col-md-12">
         <table class="table">
             <tr>
-                <th>Id</th>
-                <th>Cedula</th>
-                <th>Entrada</th>
+                <th>Cédula</th>
+                <th>Correo</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Direccion</th>
+                <th>Dirección</th>
                 <th>Edad</th>
-                <th>Telefono</th>
-                <th>Genero</th>
+                <th>Teléfono</th>
+                <th>Género</th>
                 <th>Sector</th>
                 <th></th>
             </tr>
@@ -29,9 +28,8 @@
             {
 
                 <tr>
-                    <td>@elemento.ID_CLIENTE</td>
                     <td>@elemento.CI_CLIENTE</td>
-                    <td>@elemento.ID_LOGIN</td>
+                    <td>@elemento.NOMBRE_USUARIO</td>
                     <td>@elemento.NOMBRE_CLI</td>
                     <td>@elemento.APELLIDO_CLI</td>
                     <td>@elemento.DIRECCION_CLI</td>
@@ -41,7 +39,7 @@
                     <td>@elemento.SECTOR_CLI</td>
                     <td>
                         <a class="btn btn-primary" href="~/Cliente/Editar/@elemento.ID_CLIENTE">Editar</a>
-                        <a class="btn btn-primary" href="~/Cliente/Editar/@elemento.ID_CLIENTE">Eliminar</a>
+                        <a class="btn btn-danger" href="~/Cliente/Eliminar/@elemento.ID_CLIENTE">Eliminar</a>
                     </td>
                 </tr>
             }

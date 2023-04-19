@@ -18,7 +18,7 @@ namespace FindMyGym.Controllers
     public class AccesoController : Controller
     {
         BD_FindMyGymEntities bd = new BD_FindMyGymEntities();
-        static string cadena = @"Data Source=34.71.54.220;Initial Catalog = BD_FindMyGym; Integrated Security=true;user id=sqlserver;password=Desarrollo2022;MultipleActiveResultSets=True";
+        static string cadena = @"Data Source=ESCRITORIO\MSSQLSERVER01;Initial Catalog = BD_FindMyGym; Integrated Security=true;user id=sa;password=123456;MultipleActiveResultSets=True";
 
         // GET: Acceso
         public ActionResult Login()
@@ -31,7 +31,7 @@ namespace FindMyGym.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registrar(Usuario oUsuario)
+        public ActionResult Registrar(Usuario oUsuario,TablaCliente model)
         {
             bool registrado;
             string mensaje;
@@ -64,7 +64,40 @@ namespace FindMyGym.Controllers
 
             }
 
+            try
+            {
+                
+
+                using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
+                {
+                    var tabla = new CLIENTE();
+                    tabla.CI_CLIENTE = model.CI_CLIENTE;
+                    tabla.ID_LOGIN = db.ACCESO.Where(d => d.CORREO == oUsuario.Correo).SingleOrDefault().ID_LOGIN;
+                    tabla.NOMBRE_CLI = model.NOMBRE_CLI;
+                    tabla.APELLIDO_CLI = model.APELLIDO_CLI;
+                    tabla.DIRECCION_CLI = model.DIRECCION_CLI;
+                    tabla.EDAD_CLI = model.EDAD_CLI;
+                    tabla.TELF_CLI = model.TELF_CLI;
+                    tabla.GENERO_CLI = model.GENERO_CLI;
+                    tabla.SECTOR_CLI = model.SECTOR_CLI;
+
+
+                    db.CLIENTE.Add(tabla);
+                    db.SaveChanges();
+
+                }
+                
+                
+                
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
             ViewData["Mensaje"] = mensaje;
+
             if (registrado)
             {
                 return RedirectToAction("Login", "Acceso");
@@ -78,8 +111,7 @@ namespace FindMyGym.Controllers
         {
             oUsuario.Clave = ConvertirSha256(oUsuario.Clave);
 
-            var sqlConnection = (SqlConnection)bd.Database.Connection;
-            using (SqlConnection cn = sqlConnection)
+            using (SqlConnection cn = new SqlConnection(cadena))
             {
                 SqlCommand cmd = new SqlCommand("sp_ValidarUsuario", cn);
                 cmd.Parameters.AddWithValue("Correo", oUsuario.Correo);
@@ -104,6 +136,7 @@ namespace FindMyGym.Controllers
                 return View();
             }
         }
+       
         public static string ConvertirSha256(string texto)
         {
             //using System.Text;

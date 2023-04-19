@@ -32,7 +32,7 @@ namespace FindMyGym.Models
         public string GENERO_CLI { get; set; }
         public string SECTOR_CLI { get; set; }
     
-        public virtual LOGIN LOGIN { get; set; }
+        public virtual ACCESO ACCESO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMENTARIO> COMENTARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

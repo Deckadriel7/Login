@@ -27,12 +27,12 @@ namespace FindMyGym.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ACCESO> ACCESO { get; set; }
         public virtual DbSet<CATEGORIA> CATEGORIA { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<COMENTARIO> COMENTARIO { get; set; }
         public virtual DbSet<CONTACTO> CONTACTO { get; set; }
         public virtual DbSet<GIMNASIO> GIMNASIO { get; set; }
-        public virtual DbSet<LOGIN> LOGIN { get; set; }
     
         public virtual int sp_RegistrarUsuario(string correo, string clave, ObjectParameter registrado, ObjectParameter mensaje)
         {
@@ -47,7 +47,7 @@ namespace FindMyGym.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_RegistrarUsuario", correoParameter, claveParameter, registrado, mensaje);
         }
     
-        public virtual ObjectResult<sp_ValidarUsuario_Result> sp_ValidarUsuario(string correo, string clave)
+        public virtual ObjectResult<Nullable<int>> sp_ValidarUsuario(string correo, string clave)
         {
             var correoParameter = correo != null ?
                 new ObjectParameter("Correo", correo) :
@@ -57,7 +57,7 @@ namespace FindMyGym.Models
                 new ObjectParameter("Clave", clave) :
                 new ObjectParameter("Clave", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ValidarUsuario_Result>("sp_ValidarUsuario", correoParameter, claveParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_ValidarUsuario", correoParameter, claveParameter);
         }
     }
 }

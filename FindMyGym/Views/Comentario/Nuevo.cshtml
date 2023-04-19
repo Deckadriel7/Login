@@ -1,0 +1,43 @@
+﻿@model FindMyGym.Models.ViewModels.TablaComentario
+@{
+    ViewBag.Title = "Nuevo";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Nuevo", "Comentario", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+
+            <div>
+                @Html.LabelFor(d => d.ID_GIMNASIO)
+                @Html.DropDownListFor(d => d.ID_GIMNASIO, Model.listaGimnasios, new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ID_GIMNASIO, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.ID_CLIENTE)
+                @Html.DropDownListFor(d => d.ID_CLIENTE, Model.listaCLientes, new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.ID_CLIENTE, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.TITULO_COMEN)
+                @Html.TextBoxFor(d => d.TITULO_COMEN, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.TITULO_COMEN, null, new { @class = "red" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.DESCRIPCION_COMEN)
+                @Html.TextBoxFor(d => d.DESCRIPCION_COMEN, "", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(d => d.DESCRIPCION_COMEN, null, new { @class = "red" })
+            </div>
+         
+
+            <div style="text-align:right">
+                <input value="Guardar" type="submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

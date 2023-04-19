@@ -3,9 +3,12 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #60a3bc !important;
+    background: black !important;
 }
 
+.container h-100 {
+    color:black;
+}
 .user_card {
     height: 400px;
     width: 350px;
@@ -74,5 +77,5 @@ html {
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #c0392b !important;
+    background-color: black !important;
 }
