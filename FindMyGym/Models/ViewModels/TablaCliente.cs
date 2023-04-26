@@ -34,7 +34,7 @@ namespace FindMyGym.Models.ViewModels
         [Display(Name = "Dirección")]
         public string DIRECCION_CLI { get; set; }
         [Required]
-        
+        [Range(0, 101, ErrorMessage = "La edad debe estar entre 0 y 101")]
         [Display(Name = "Edad")]
         public int EDAD_CLI { get; set; }
         [Required]

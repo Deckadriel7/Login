@@ -7,12 +7,12 @@
 
 <html>
 <head>
-    <title>My Awesome Login Page</title>
+    <title>Registrar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="~/Content/css/Login.css" rel="stylesheet" />
+    <link href="~/Content/css/Register.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container h-100">
@@ -28,77 +28,115 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <span class="input-group-text"></span>
                             </div>
-                            <input type="text" name="Correo" class="form-control input_user" value="" placeholder="Correo">
+                            <input type="email" name="Correo" class="form-control input_user" value="" placeholder="Correo">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text"></span>
                             </div>
                             <input type="password" name="Clave" class="form-control input_user" value="" placeholder="Contraseña">
                         </div>
                         <div class="input-group mb-2">
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <span class="input-group-text"></span>
                             </div>
                             <input type="password" name="ConfirmarClave" class="form-control input_pass" value="" placeholder="Confirmar Contraseña">
                         </div>
-                        <div>
-                            @Html.LabelFor(d => d.CI_CLIENTE)
-                            @Html.TextBoxFor(d => d.CI_CLIENTE, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.CI_CLIENTE, null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.LabelFor(d => d.NOMBRE_CLI)
-                            @Html.TextBoxFor(d => d.NOMBRE_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.NOMBRE_CLI, null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.LabelFor(d => d.APELLIDO_CLI)
-                            @Html.TextBoxFor(d => d.APELLIDO_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.APELLIDO_CLI, null, new { @class = "red" })
-                        </div>
-
-                        <div>
-                            @Html.LabelFor(d => d.DIRECCION_CLI)
-                            @Html.TextBoxFor(d => d.DIRECCION_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.DIRECCION_CLI, null, new { @class = "red" })
-                        </div>
-
-                        <div>
-                            @Html.LabelFor(d => d.EDAD_CLI)
-                            @Html.TextBoxFor(d => d.EDAD_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.EDAD_CLI, null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.LabelFor(d => d.TELF_CLI)
-                            @Html.TextBoxFor(d => d.TELF_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.TELF_CLI, null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.LabelFor(d => d.GENERO_CLI)
-                            @Html.DropDownListFor(d => d.GENERO_CLI, new SelectList(new List<string> { "Masculino", "Femenino", "No especificar" }), "-Seleccione-", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.GENERO_CLI, null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.LabelFor(d => d.SECTOR_CLI)
-                            @Html.TextBoxFor(d => d.SECTOR_CLI, "", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(d => d.SECTOR_CLI, null, new { @class = "red" })
-                        </div>
-
-                        @if (ViewData["Mensaje"] != null)
-                        {
-
-                            <div class="alert alert-danger" role="alert">
-                                Correo ya existe
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"></span>
+                                <div>
+                                 
+                                    @Html.TextBoxFor(d => d.CI_CLIENTE, "", new { @class = "form-control", pattern = "[0-9]*", maxlength = "10", placeholder = "Cédula" })
+                                    @Html.ValidationMessageFor(d => d.CI_CLIENTE, null, new { @class = "red" })
+                                </div>
                             </div>
-                        }
-
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <button type="submit" name="button" class="btn login_btn">Registrarse</button>
                         </div>
-                    </form>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"></span>
+                                <div>
+
+                                    @Html.TextBoxFor(d => d.NOMBRE_CLI, "", new { @class = "form-control", placeholder = "Nombre" })
+                                    @Html.ValidationMessageFor(d => d.NOMBRE_CLI, null, new { @class = "red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"></span>
+                                <div>
+
+                                    @Html.TextBoxFor(d => d.APELLIDO_CLI, "", new { @class = "form-control", placeholder = "Apellido" })
+                                    @Html.ValidationMessageFor(d => d.APELLIDO_CLI, null, new { @class = "red" })
+                                </div>
+                            </div>
+                        </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                    <div>
+
+                                        @Html.TextBoxFor(d => d.DIRECCION_CLI, "", new { @class = "form-control", placeholder = "Dirección" })
+                                        @Html.ValidationMessageFor(d => d.DIRECCION_CLI, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                    <div>
+
+                                        @Html.TextBoxFor(d => d.EDAD_CLI, "", new { @class = "form-control", placeholder = "Edad" })
+                                        @Html.ValidationMessageFor(d => d.EDAD_CLI, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                    <div>
+
+                                        @Html.TextBoxFor(d => d.TELF_CLI, "", new { @class = "form-control", placeholder = "Teléfono" })
+                                        @Html.ValidationMessageFor(d => d.TELF_CLI, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                    <div>
+
+                                        @Html.DropDownListFor(d => d.GENERO_CLI, new SelectList(new List<string> { "Masculino", "Femenino", "No especificar" }), "-Seleccione-", new { @class = "form-control", placeholder = "Cédula del Cliente" })
+                                        @Html.ValidationMessageFor(d => d.GENERO_CLI, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"></span>
+                                    <div>
+
+                                        @Html.TextBoxFor(d => d.SECTOR_CLI, "", new { @class = "form-control", placeholder = "Sector" })
+                                        @Html.ValidationMessageFor(d => d.SECTOR_CLI, null, new { @class = "red" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (ViewData["Mensaje"] != null)
+                            {
+
+                                <div class="alert alert-danger" role="alert">
+                                    Correo ya existe
+                                </div>
+                            }
+
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <button type="submit" name="button" class="btn login_btn">Registrarse</button>
+                            </div>
+                        </form>
                 </div>
 
                 <div class="mt-4">
