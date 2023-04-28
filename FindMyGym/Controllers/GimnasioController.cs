@@ -5,21 +5,22 @@ using System.Web;
 using System.Web.Mvc;
 using FindMyGym.Models;
 using FindMyGym.Models.ViewModels;
-using Login.Permisos;
+//using Login.Permisos;
 using WebGrease;
 
 namespace FindMyGym.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class GimnasioController : Controller
     {
-        [ValidarSesion]
+        //[ValidarSesion]
         // GET: Gimnasio
-        public ActionResult Index()
+        public ActionResult Index(string mensaje)
         {
             List<TablaViewModel> lst;
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                lst = (from d in db.GIMNASIO
+                lst = (from d in db.GIMNASIOs
                         select new TablaViewModel
                         {
                             ID_GIMNASIO = d.ID_GIMNASIO,
@@ -39,16 +40,17 @@ namespace FindMyGym.Controllers
                 foreach (var item in lst)
                 {
 
-                    item.NOMBRE_CATEGORIA = db.CATEGORIA.Where(d => d.ID_CATEGORIA == item.ID_CATEGORIA).SingleOrDefault().NOMBRE_CAT;
+                    item.NOMBRE_CATEGORIA = db.CATEGORIAs.Where(d => d.ID_CATEGORIA == item.ID_CATEGORIA).SingleOrDefault().NOMBRE_CAT;
                 }
             }
+            ViewData["Mensaje"] = mensaje;
                 return View(lst);
         }
         public ActionResult Nuevo(TablaGimnasio model, string nouso)
         {
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var QueryCategorias = db.CATEGORIA.Select(c => c);
+                var QueryCategorias = db.CATEGORIAs.Select(c => c);
                 model.listaCategorias = new SelectList(QueryCategorias.ToList(), "ID_CATEGORIA", "NOMBRE_CAT");
             }
             return View(model);
@@ -76,7 +78,7 @@ namespace FindMyGym.Controllers
                         tabla.SECTOR_GIMNASIO = model.SECTOR_GIMNASIO;
                         tabla.IMAGEN_GIMNASIO = model.IMAGEN_GIMNASIO;
 
-                        db.GIMNASIO.Add(tabla);
+                        db.GIMNASIOs.Add(tabla);
                         db.SaveChanges();
 
                     }
@@ -97,7 +99,7 @@ namespace FindMyGym.Controllers
             TablaGimnasio model = new TablaGimnasio();  
             using ( BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.GIMNASIO.Find(Id);
+                var tabla = db.GIMNASIOs.Find(Id);
                 model.ID_GIMNASIO = tabla.ID_GIMNASIO;
                 model.ID_CATEGORIA = tabla.ID_CATEGORIA;
                 model.NOMBRE_GIMNASIO = tabla.NOMBRE_GIMNASIO;
@@ -111,7 +113,7 @@ namespace FindMyGym.Controllers
             }
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var QueryCategorias = db.CATEGORIA.Select(c => c);
+                var QueryCategorias = db.CATEGORIAs.Select(c => c);
                 model.listaCategorias = new SelectList(QueryCategorias.ToList(), "ID_CATEGORIA", "NOMBRE_CAT");
             }
           
@@ -127,7 +129,7 @@ namespace FindMyGym.Controllers
                 {
                     using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
                     {
-                        var tabla = db.GIMNASIO.Find(model.ID_GIMNASIO);
+                        var tabla = db.GIMNASIOs.Find(model.ID_GIMNASIO);
                         tabla.ID_CATEGORIA = model.ID_CATEGORIA;
                         tabla.NOMBRE_GIMNASIO = model.NOMBRE_GIMNASIO;
                         tabla.DIRECCION_GIMANSIO = model.DIRECCION_GIMNASIO;
@@ -159,12 +161,21 @@ namespace FindMyGym.Controllers
 
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.GIMNASIO.Find(Id);
-                db.GIMNASIO.Remove(tabla);
+                try
+                {
+                    var tabla = db.GIMNASIOs.Find(Id);
+                    db.GIMNASIOs.Remove(tabla);
+                    db.SaveChanges();
 
-                db.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    string mensaje = "Error al eliminar el Gimnasio, revise dependencias";
+                    return RedirectToAction("Index","Gimnasio",new { mensaje });
+                }
             }
-            return Redirect("~/Gimnasio/"); ;
+            return Redirect("~/Gimnasio/"); 
         }
 
        

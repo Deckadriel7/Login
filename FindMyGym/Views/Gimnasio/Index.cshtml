@@ -1,51 +1,77 @@
 ﻿@model List<FindMyGym.Models.ViewModels.TablaViewModel>
 @{
-    ViewBag.Title = "Información de Gimnasio";
+    ViewBag.Title = "Información Gimnasio";
 }
-
 <h2>@ViewBag.Title</h2>
 
-<div class="row" style="text-align:right; padding:5px;" >
-    <a href="~/Gimnasio/Nuevo" class="btn btn-primary">Nuevo</a>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table class="table">
-            <tr>
-                <th>Id</th>
-                <th>Nombre de Categoría</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Descripción</th>
-                <th>Precio Anual</th>
-                <th>Precio Mensual</th>
-                <th>Teléfono</th>
-                <th>Sector</th>
-               
-                <th></th>
-            </tr>
-            @foreach (var elemento in Model)
-            {
-                <tr>
-                    <td>@elemento.ID_GIMNASIO</td>
-                    <td>@elemento.NOMBRE_CATEGORIA</td>
-                    <td>@elemento.NOMBRE_GIMNASIO</td>
-                    <td>@elemento.DIRECCION_GIMNASIO</td>
-                    <td>@elemento.DESCRIPCION_GIMNASIO</td>
-                    <td>@elemento.PRECIO_ANUAL</td>
-                    <td>@elemento.PRECIO_MENSUAL</td>
-                    <td>@elemento.TELF_GIMNASIO</td>
-                    <td>@elemento.SECTOR_GIMNASIO</td>
-                  
-                    <td>
-                        <a class="btn btn-primary" href="~/Gimnasio/Editar/@elemento.ID_GIMNASIO">Editar</a>
-                        <a class="btn btn-danger" href="~/Gimnasio/Eliminar/@elemento.ID_GIMNASIO">Eliminar</a>
-                    </td>
-                </tr>
-            }
-        </table>
+
+
+<div class="row" style="text-align:right; padding:5px;">
+        <a href="~/Gimnasio/Nuevo" class="btn btn-primary">Nuevo</a>
     </div>
+    @{
+        if (ViewData["Mensaje"] != null)
+        {
+            <div id="mensaje" class="alert alert-danger" role="alert">
+                @ViewData["Mensaje"]
+            </div>
+        }
 
-</div>
+    }
+
+    <script>
+        // Esperar 5 segundos antes de ocultar el div
+        setTimeout(function () {
+            document.getElementById("mensaje").classList.add("oculto");
+        }, 4000);
+    </script>
+
+    <style>
+        /* Definir la clase "oculto" que oculta el div */
+        .oculto {
+            display: none;
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre de Categoría</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Descripción</th>
+                    <th>Precio Anual</th>
+                    <th>Precio Mensual</th>
+                    <th>Teléfono</th>
+                    <th>Sector</th>
+
+                    <th></th>
+                </tr>
+                @foreach (var elemento in Model)
+                {
+                    <tr>
+                        <td>@elemento.ID_GIMNASIO</td>
+                        <td>@elemento.NOMBRE_CATEGORIA</td>
+                        <td>@elemento.NOMBRE_GIMNASIO</td>
+                        <td>@elemento.DIRECCION_GIMNASIO</td>
+                        <td>@elemento.DESCRIPCION_GIMNASIO</td>
+                        <td>@elemento.PRECIO_ANUAL</td>
+                        <td>@elemento.PRECIO_MENSUAL</td>
+                        <td>@elemento.TELF_GIMNASIO</td>
+                        <td>@elemento.SECTOR_GIMNASIO</td>
+
+                        <td>
+                            <a class="btn btn-primary" href="~/Gimnasio/Editar/@elemento.ID_GIMNASIO">Editar</a>
+                            <a class="btn btn-danger" href="~/Gimnasio/Eliminar/@elemento.ID_GIMNASIO">Eliminar</a>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
 

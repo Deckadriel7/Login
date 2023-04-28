@@ -6,20 +6,20 @@ using System.Web.Mvc;
 using FindMyGym.Controllers;
 using FindMyGym.Models;
 using FindMyGym.Models.ViewModels;
-using Login.Permisos;
+//using Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
     public class ContactoController : Controller
     {
-        [ValidarSesion]
+        //[ValidarSesion]
         // GET: Contactoa
         public ActionResult Index()
         {
             List<TablaContacto> lst;
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                lst = (from d in db.CONTACTO
+                lst = (from d in db.CONTACTOes
                           select new TablaContacto
                           {
                               ID_CONTACTO = d.ID_CONTACTO,
@@ -32,9 +32,9 @@ namespace FindMyGym.Controllers
 
                 foreach (var item in lst)
                 {
-                    item.NombreGimnasio = db.GIMNASIO.Where(d => d.ID_GIMNASIO == item.ID_GIMNASIO).SingleOrDefault().NOMBRE_GIMNASIO;
-                    item.NombreCliente = db.CLIENTE.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().NOMBRE_CLI;
-                    item.NombreApellido = db.CLIENTE.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().APELLIDO_CLI;
+                    item.NombreGimnasio = db.GIMNASIOs.Where(d => d.ID_GIMNASIO == item.ID_GIMNASIO).SingleOrDefault().NOMBRE_GIMNASIO;
+                    item.NombreCliente = db.CLIENTEs.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().NOMBRE_CLI;
+                    item.NombreApellido = db.CLIENTEs.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().APELLIDO_CLI;
                 }
 
             }
@@ -47,11 +47,11 @@ namespace FindMyGym.Controllers
 
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var QueryGimnasio = db.GIMNASIO.Select(c => c);
+                var QueryGimnasio = db.GIMNASIOs.Select(c => c);
                 model.ListaGimnasio = new SelectList(QueryGimnasio.ToList(), "ID_GIMNASIO", "NOMBRE_GIMNASIO");
 
-                var QueryCliente = db.CLIENTE.Select(c => c);
-                model.ListaCliente = new SelectList(QueryCliente.ToList(), "ID_CLIENTE", "NOMBRE_CLI");
+                var QueryCliente = db.CLIENTEs.Select(c => new { c.ID_CLIENTE, NombreCompleto = c.NOMBRE_CLI + " " + c.APELLIDO_CLI });
+                model.ListaCliente = new SelectList(QueryCliente.ToList(), "ID_CLIENTE", "NombreCompleto");
 
             };
 
@@ -75,7 +75,7 @@ namespace FindMyGym.Controllers
                         tabla.MENSAJE = model.MENSAJE;
                         tabla.FECHA = Convert.ToDateTime(model.FECHA);
 
-                        db.CONTACTO.Add(tabla);
+                        db.CONTACTOes.Add(tabla);
                         db.SaveChanges();
 
                     }

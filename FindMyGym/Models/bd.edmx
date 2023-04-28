@@ -12,6 +12,7 @@
           <Property Name="CORREO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CONTRASENIA" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ID_LOGIN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CATEGORIA">
           <Key>
@@ -142,12 +143,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarAcceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="contrasenia" Type="varchar" Mode="In" />
+          <Parameter Name="id_login" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_RegistrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Clave" Type="varchar" Mode="In" />
           <Parameter Name="Registrado" Type="bit" Mode="InOut" />
           <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
         </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ValidarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Clave" Type="varchar" Mode="In" />
@@ -196,7 +233,8 @@
           <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CONTRASENIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_LOGIN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="ACCESO" ToRole="CLIENTE" />
+          <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTEs" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="ACCESO" ToRole="CLIENTE" />
         </EntityType>
         <EntityType Name="CATEGORIA">
           <Key>
@@ -204,7 +242,7 @@
           </Key>
           <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOMBRE_CAT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="GIMNASIO" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="CATEGORIA" ToRole="GIMNASIO" />
+          <NavigationProperty Name="GIMNASIOs" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="CATEGORIA" ToRole="GIMNASIO" />
         </EntityType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -221,8 +259,8 @@
           <Property Name="GENERO_CLI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SECTOR_CLI" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ACCESO" Relationship="Self.FK_CLIENTE_TIENE1_LOGIN" FromRole="CLIENTE" ToRole="ACCESO" />
-          <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="CLIENTE" ToRole="COMENTARIO" />
-          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_CLIENTE" FromRole="CLIENTE" ToRole="CONTACTO" />
+          <NavigationProperty Name="COMENTARIOs" Relationship="Self.FK_COMENTAR_PUBLICA_CLIENTE" FromRole="CLIENTE" ToRole="COMENTARIO" />
+          <NavigationProperty Name="CONTACTOes" Relationship="Self.FK_CONTACTO_CLIENTE" FromRole="CLIENTE" ToRole="CONTACTO" />
         </EntityType>
         <EntityType Name="COMENTARIO">
           <Key>
@@ -263,8 +301,8 @@
           <Property Name="SECTOR_GIMNASIO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IMAGEN_GIMNASIO" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_GIMNASIO_TIENE2_CATEGORI" FromRole="GIMNASIO" ToRole="CATEGORIA" />
-          <NavigationProperty Name="COMENTARIO" Relationship="Self.FK_COMENTAR_TIENE_GIMNASIO" FromRole="GIMNASIO" ToRole="COMENTARIO" />
-          <NavigationProperty Name="CONTACTO" Relationship="Self.FK_CONTACTO_GIMNASIO" FromRole="GIMNASIO" ToRole="CONTACTO" />
+          <NavigationProperty Name="COMENTARIOs" Relationship="Self.FK_COMENTAR_TIENE_GIMNASIO" FromRole="GIMNASIO" ToRole="COMENTARIO" />
+          <NavigationProperty Name="CONTACTOes" Relationship="Self.FK_CONTACTO_GIMNASIO" FromRole="GIMNASIO" ToRole="CONTACTO" />
         </EntityType>
         <Association Name="FK_CLIENTE_TIENE1_LOGIN">
           <End Role="ACCESO" Type="Self.ACCESO" Multiplicity="1" />
@@ -339,63 +377,110 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BD_FindMyGymEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ACCESO" EntityType="Self.ACCESO" />
-          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
-          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
-          <EntitySet Name="COMENTARIO" EntityType="Self.COMENTARIO" />
-          <EntitySet Name="CONTACTO" EntityType="Self.CONTACTO" />
-          <EntitySet Name="GIMNASIO" EntityType="Self.GIMNASIO" />
+          <EntitySet Name="ACCESOes" EntityType="Self.ACCESO" />
+          <EntitySet Name="CATEGORIAs" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
+          <EntitySet Name="COMENTARIOs" EntityType="Self.COMENTARIO" />
+          <EntitySet Name="CONTACTOes" EntityType="Self.CONTACTO" />
+          <EntitySet Name="GIMNASIOs" EntityType="Self.GIMNASIO" />
           <AssociationSet Name="FK_CLIENTE_TIENE1_LOGIN" Association="Self.FK_CLIENTE_TIENE1_LOGIN">
-            <End Role="ACCESO" EntitySet="ACCESO" />
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="ACCESO" EntitySet="ACCESOes" />
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
           </AssociationSet>
           <AssociationSet Name="FK_GIMNASIO_TIENE2_CATEGORI" Association="Self.FK_GIMNASIO_TIENE2_CATEGORI">
-            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
-            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
+            <End Role="CATEGORIA" EntitySet="CATEGORIAs" />
+            <End Role="GIMNASIO" EntitySet="GIMNASIOs" />
           </AssociationSet>
           <AssociationSet Name="FK_COMENTAR_PUBLICA_CLIENTE" Association="Self.FK_COMENTAR_PUBLICA_CLIENTE">
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
-            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIOs" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTACTO_CLIENTE" Association="Self.FK_CONTACTO_CLIENTE">
-            <End Role="CLIENTE" EntitySet="CLIENTE" />
-            <End Role="CONTACTO" EntitySet="CONTACTO" />
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
+            <End Role="CONTACTO" EntitySet="CONTACTOes" />
           </AssociationSet>
           <AssociationSet Name="FK_COMENTAR_TIENE_GIMNASIO" Association="Self.FK_COMENTAR_TIENE_GIMNASIO">
-            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
-            <End Role="COMENTARIO" EntitySet="COMENTARIO" />
+            <End Role="GIMNASIO" EntitySet="GIMNASIOs" />
+            <End Role="COMENTARIO" EntitySet="COMENTARIOs" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTACTO_GIMNASIO" Association="Self.FK_CONTACTO_GIMNASIO">
-            <End Role="GIMNASIO" EntitySet="GIMNASIO" />
-            <End Role="CONTACTO" EntitySet="CONTACTO" />
+            <End Role="GIMNASIO" EntitySet="GIMNASIOs" />
+            <End Role="CONTACTO" EntitySet="CONTACTOes" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BD_FindMyGymModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BD_FindMyGymModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarAcceso">
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="contrasenia" Mode="In" Type="String" />
+            <Parameter Name="id_login" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_RegistrarUsuario">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Clave" Mode="In" Type="String" />
             <Parameter Name="Registrado" Mode="InOut" Type="Boolean" />
             <Parameter Name="Mensaje" Mode="InOut" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="sp_ValidarUsuario" ReturnType="Collection(Int32)">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Clave" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BD_FindMyGymModelStoreContainer" CdmEntityContainer="BD_FindMyGymEntities">
-          <EntitySetMapping Name="ACCESO">
+          <EntitySetMapping Name="ACCESOes">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.ACCESO">
               <MappingFragment StoreEntitySet="ACCESO">
                 <ScalarProperty Name="CORREO" ColumnName="CORREO" />
                 <ScalarProperty Name="CONTRASENIA" ColumnName="CONTRASENIA" />
                 <ScalarProperty Name="ID_LOGIN" ColumnName="ID_LOGIN" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CATEGORIA">
+          <EntitySetMapping Name="CATEGORIAs">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.CATEGORIA">
               <MappingFragment StoreEntitySet="CATEGORIA">
                 <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
@@ -403,7 +488,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CLIENTE">
+          <EntitySetMapping Name="CLIENTEs">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
@@ -419,7 +504,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="COMENTARIO">
+          <EntitySetMapping Name="COMENTARIOs">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.COMENTARIO">
               <MappingFragment StoreEntitySet="COMENTARIO">
                 <ScalarProperty Name="ID_COMENTARIO" ColumnName="ID_COMENTARIO" />
@@ -430,7 +515,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CONTACTO">
+          <EntitySetMapping Name="CONTACTOes">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.CONTACTO">
               <MappingFragment StoreEntitySet="CONTACTO">
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
@@ -441,7 +526,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GIMNASIO">
+          <EntitySetMapping Name="GIMNASIOs">
             <EntityTypeMapping TypeName="BD_FindMyGymModel.GIMNASIO">
               <MappingFragment StoreEntitySet="GIMNASIO">
                 <ScalarProperty Name="ID_GIMNASIO" ColumnName="ID_GIMNASIO" />
@@ -457,7 +542,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BD_FindMyGymModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BD_FindMyGymModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BD_FindMyGymModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BD_FindMyGymModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_FindMyGymModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BD_FindMyGymModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BD_FindMyGymModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertarAcceso" FunctionName="BD_FindMyGymModel.Store.sp_InsertarAcceso" />
           <FunctionImportMapping FunctionImportName="sp_RegistrarUsuario" FunctionName="BD_FindMyGymModel.Store.sp_RegistrarUsuario" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BD_FindMyGymModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BD_FindMyGymModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="sp_ValidarUsuario" FunctionName="BD_FindMyGymModel.Store.sp_ValidarUsuario" />
         </EntityContainerMapping>
       </Mapping>
@@ -473,7 +583,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />

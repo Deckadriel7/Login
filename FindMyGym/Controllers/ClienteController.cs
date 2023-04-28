@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Login.Permisos;
+//using Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
-    [ValidarSesion]
+    //[ValidarSesion]
     public class ClienteController : Controller
     {
         // GET: Clientes
@@ -18,7 +18,7 @@ namespace FindMyGym.Controllers
             List<tablaViewModel1> lst;
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                lst = (from d in db.CLIENTE
+                lst = (from d in db.CLIENTEs
                        select new tablaViewModel1
                        {
                            ID_CLIENTE = d.ID_CLIENTE,
@@ -36,7 +36,7 @@ namespace FindMyGym.Controllers
 
                 foreach (var item in lst)
                 {
-                    item.NOMBRE_USUARIO = db.ACCESO.Where(d => d.ID_LOGIN == item.ID_LOGIN).SingleOrDefault().CORREO;
+                    item.NOMBRE_USUARIO = db.ACCESOes.Where(d => d.ID_LOGIN == item.ID_LOGIN).SingleOrDefault().CORREO;
                 }
                 
             }
@@ -72,7 +72,7 @@ namespace FindMyGym.Controllers
                         tabla.SECTOR_CLI = model.SECTOR_CLI;
                     
   
-                        db.CLIENTE.Add(tabla);
+                        db.CLIENTEs.Add(tabla);
                         db.SaveChanges();
 
                     }
@@ -93,7 +93,7 @@ namespace FindMyGym.Controllers
             TablaCliente model = new TablaCliente();
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.CLIENTE.Find(Id);
+                var tabla = db.CLIENTEs.Find(Id);
                 model.ID_CLIENTE = tabla.ID_CLIENTE;
                 model.CI_CLIENTE = tabla.CI_CLIENTE;
                 model.ID_LOGIN = tabla.ID_LOGIN;
@@ -117,7 +117,7 @@ namespace FindMyGym.Controllers
                 {
                     using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
                     {
-                        var tabla = db.CLIENTE.Find(model.ID_CLIENTE);
+                        var tabla = db.CLIENTEs.Find(model.ID_CLIENTE);
                         tabla.ID_CLIENTE = model.ID_CLIENTE;
                         tabla.CI_CLIENTE = model.CI_CLIENTE;
                         tabla.ID_LOGIN = model.ID_LOGIN;
@@ -148,11 +148,11 @@ namespace FindMyGym.Controllers
         {
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.CLIENTE.Find(Id);
+                var tabla = db.CLIENTEs.Find(Id);
                 int idLogin = tabla.ID_LOGIN;
-                var tablaL = db.ACCESO.Find(idLogin);
-                db.CLIENTE.Remove(tabla);
-                db.ACCESO.Remove(tablaL);
+                var tablaL = db.ACCESOes.Find(idLogin);
+                db.CLIENTEs.Remove(tabla);
+                db.ACCESOes.Remove(tablaL);
                 db.SaveChanges();
             }
             return Redirect("~/Cliente/"); 

@@ -17,13 +17,13 @@ namespace FindMyGym.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CATEGORIA()
         {
-            this.GIMNASIO = new HashSet<GIMNASIO>();
+            this.GIMNASIOs = new HashSet<GIMNASIO>();
         }
     
         public int ID_CATEGORIA { get; set; }
         public string NOMBRE_CAT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GIMNASIO> GIMNASIO { get; set; }
+        public virtual ICollection<GIMNASIO> GIMNASIOs { get; set; }
     }
 }

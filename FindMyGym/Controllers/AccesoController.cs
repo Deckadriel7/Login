@@ -10,15 +10,94 @@ using System.Security.Cryptography;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.Entity;
-using Login.Permisos;
+//using Login.Permisos;
+using System.Web.Security;
+using Microsoft.EntityFrameworkCore;
+using System.Windows.Forms;
 
 namespace FindMyGym.Controllers
 {
-    
+
+    //[ValidarSesionLogin]
     public class AccesoController : Controller
     {
+        public ActionResult Login()
+        {
+            if (User.IsInRole("administrador"))
+            {
+                // mostrar todas las vistas de las gestiones de las tablas
+                return View();
+            }
+            else if (User.IsInRole("usuario"))
+            {
+                // mostrar solo las vistas de home, contact us y about us
+                return View("Usuario");
+            }
+            else
+            {
+                // el usuario no tiene un rol válido, mostrar un mensaje de error o redirigir a una página de error
+                return View("Error");
+            }
+        }
+        [HttpPost]
+        public ActionResult Login(Usuario usuario, string returnUrl)
+        {
+            if (IsValid(usuario))
+            {
+                FormsAuthentication.SetAuthCookie(usuario.Correo, false);
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                if (User.IsInRole("admin"))
+                {
+                    // mostrar todas las vistas de las gestiones de las tablas
+                    return RedirectToAction("Index", "Gimnasio");
+                }
+                else if (User.IsInRole("usuario"))
+                {
+                    // mostrar solo las vistas de home, contact us y about us
+                    return RedirectToAction("Usuario", "Home");
+                }
+                else
+                {
+                    // el usuario no tiene un rol válido, mostrar un mensaje de error o redirigir a una página de error
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "El correo electrónico o la contraseña son incorrectos.");
+                return View(usuario);
+            }
+        }
+
+        private bool IsValid(Usuario usuario)
+        {
+            using (var context = new BD_FindMyGymEntities())
+            {
+                var user = context.ACCESOes.FirstOrDefault(u => u.CORREO == usuario.Correo && u.CONTRASENIA == usuario.Clave);
+                if (user != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        /*public ActionResult Index()
+        {
+            if (User.IsInRole("admin"))
+            {
+                return View("VistaAdministrador");
+            }
+            else
+            {
+                return View("VistaCliente");
+            }
+        }
+        
         BD_FindMyGymEntities bd = new BD_FindMyGymEntities();
-        static string cadena = @"Data Source=ESCRITORIO\MSSQLSERVER01;Initial Catalog = BD_FindMyGym; Integrated Security=true;user id=sa;password=123456;MultipleActiveResultSets=True";
+        static string cadena = @"Data Source=DECKASXPS13;Initial Catalog = BD_FindMyGym; Integrated Security=true;user id=sa;password=123456;MultipleActiveResultSets=True";
 
         // GET: Acceso
         public ActionResult Login()
@@ -156,6 +235,6 @@ namespace FindMyGym.Controllers
             }
             return Sb.ToString();
         }
-
+        */
     }
 }

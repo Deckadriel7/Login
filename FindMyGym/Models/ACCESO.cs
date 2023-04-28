@@ -17,14 +17,15 @@ namespace FindMyGym.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ACCESO()
         {
-            this.CLIENTE = new HashSet<CLIENTE>();
+            this.CLIENTEs = new HashSet<CLIENTE>();
         }
     
         public string CORREO { get; set; }
         public string CONTRASENIA { get; set; }
         public int ID_LOGIN { get; set; }
+        public string rol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        public virtual ICollection<CLIENTE> CLIENTEs { get; set; }
     }
 }

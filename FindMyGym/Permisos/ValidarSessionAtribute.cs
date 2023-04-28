@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,10 +14,24 @@ namespace Login.Permisos
 
             if (HttpContext.Current.Session["usuario"] == null)
             {
-                filterContext.Result = new RedirectResult("~/Acceso/Login");
+                filterContext.Result = new RedirectResult("/Home/Index");
             }
 
             base.OnActionExecuting(filterContext);
         }
     }
-}
+    public class ValidarSesionLoginAttribute : ActionFilterAttribute
+    {
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+
+            if (HttpContext.Current.Session["usuario"] != null)
+            {
+                filterContext.Result = new RedirectResult("~/Home/Index");
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+    }
+}*/

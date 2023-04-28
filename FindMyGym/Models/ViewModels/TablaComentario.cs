@@ -10,6 +10,7 @@ namespace FindMyGym.Models.ViewModels
 {
     public class TablaComentario
     {
+
         public int ID_COMENTARIO { get; set; }
 
         [Required]

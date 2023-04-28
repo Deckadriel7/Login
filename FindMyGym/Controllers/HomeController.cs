@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Login.Permisos;
+//sing Login.Permisos;
 
 namespace FindMyGym.Controllers
 {
     public class HomeController : Controller
     {
-        [ValidarSesion]
+        //[ValidarSesion]
         public ActionResult Index()
         {
             return View();

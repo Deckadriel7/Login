@@ -1,6 +1,6 @@
 ﻿using FindMyGym.Models.ViewModels;
 using FindMyGym.Models;
-using Login.Permisos;
+//using Login.Permisos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +11,14 @@ namespace FindMyGym.Controllers
 {
     public class ComentarioController : Controller
     {
-        [ValidarSesion]
+        //[ValidarSesion]
         // GET: Comentario
         public ActionResult Index()
         {
             List<TablaComentario> lst;
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                lst = (from d in db.COMENTARIO
+                lst = (from d in db.COMENTARIOs
                        select new TablaComentario
                        {
                            ID_COMENTARIO= d.ID_COMENTARIO,
@@ -33,8 +33,8 @@ namespace FindMyGym.Controllers
                 foreach (var item in lst)
                 {
 
-                    item.nombreCliente = db.CLIENTE.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().NOMBRE_CLI;
-                    item.nombreGimnasio = db.GIMNASIO.Where(d => d.ID_GIMNASIO == item.ID_GIMNASIO).SingleOrDefault().NOMBRE_GIMNASIO;
+                    item.nombreCliente = db.CLIENTEs.Where(d => d.ID_CLIENTE == item.ID_CLIENTE).SingleOrDefault().NOMBRE_CLI;
+                    item.nombreGimnasio = db.GIMNASIOs.Where(d => d.ID_GIMNASIO == item.ID_GIMNASIO).SingleOrDefault().NOMBRE_GIMNASIO;
                 }
             }
             return View(lst);
@@ -43,9 +43,9 @@ namespace FindMyGym.Controllers
         {
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var QueryClientes = db.CLIENTE.Select(c => c);
-                model.listaCLientes = new SelectList(QueryClientes.ToList(), "ID_CLIENTE", "NOMBRE_CLI");
-                var QueryGimnasio = db.GIMNASIO.Select(c => c);
+                var QueryClientes = db.CLIENTEs.Select(c => new { c.ID_CLIENTE, NombreCompleto = c.NOMBRE_CLI + " " + c.APELLIDO_CLI });
+                model.listaCLientes = new SelectList(QueryClientes.ToList(), "ID_CLIENTE", "NombreCompleto");
+                var QueryGimnasio = db.GIMNASIOs.Select(c => c);
                 model.listaGimnasios = new SelectList(QueryGimnasio.ToList(), "ID_GIMNASIO", "NOMBRE_GIMNASIO");
             }
             return View(model);
@@ -70,7 +70,7 @@ namespace FindMyGym.Controllers
                         tabla.DESCRIPCION_COMEN = model.DESCRIPCION_COMEN;
                      
 
-                        db.COMENTARIO.Add(tabla);
+                        db.COMENTARIOs.Add(tabla);
                         db.SaveChanges();
 
                     }
@@ -91,16 +91,16 @@ namespace FindMyGym.Controllers
             TablaComentario model = new TablaComentario();
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.COMENTARIO.Find(Id);
+                var tabla = db.COMENTARIOs.Find(Id);
                 model.ID_COMENTARIO = tabla.ID_COMENTARIO;
                 model.ID_CLIENTE = tabla.ID_CLIENTE;
                 model.ID_GIMNASIO = tabla.ID_GIMNASIO;
                 model.TITULO_COMEN = tabla.TITULO_COMEN;
                 model.DESCRIPCION_COMEN = tabla.DESCRIPCION_COMEN;
 
-                var QueryClientes = db.CLIENTE.Select(c => c);
-                model.listaCLientes = new SelectList(QueryClientes.ToList(), "ID_CLIENTE", "NOMBRE_CLI");
-                var QueryGimnasio = db.GIMNASIO.Select(c => c);
+                var QueryClientes = db.CLIENTEs.Select(c => new { c.ID_CLIENTE, NombreCompleto = c.NOMBRE_CLI + " " + c.APELLIDO_CLI });
+                model.listaCLientes = new SelectList(QueryClientes.ToList(), "ID_CLIENTE", "NombreCompleto");
+                var QueryGimnasio = db.GIMNASIOs.Select(c => c);
                 model.listaGimnasios = new SelectList(QueryGimnasio.ToList(), "ID_GIMNASIO", "NOMBRE_GIMNASIO");
 
             }
@@ -116,7 +116,7 @@ namespace FindMyGym.Controllers
                 {
                     using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
                     {
-                        var tabla = db.COMENTARIO.Find(model.ID_COMENTARIO);
+                        var tabla = db.COMENTARIOs.Find(model.ID_COMENTARIO);
                         tabla.ID_COMENTARIO = model.ID_COMENTARIO;
                         tabla.ID_CLIENTE = model.ID_CLIENTE;
                         tabla.ID_GIMNASIO = model.ID_GIMNASIO;
@@ -144,8 +144,8 @@ namespace FindMyGym.Controllers
 
             using (BD_FindMyGymEntities db = new BD_FindMyGymEntities())
             {
-                var tabla = db.COMENTARIO.Find(Id);
-                db.COMENTARIO.Remove(tabla);
+                var tabla = db.COMENTARIOs.Find(Id);
+                db.COMENTARIOs.Remove(tabla);
 
                 db.SaveChanges();
             }

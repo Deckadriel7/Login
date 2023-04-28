@@ -1,0 +1,513 @@
+﻿:root {
+    --amarillo: #E7B10A;
+    --dorado: #d3a007;
+    --negroSalton: rgba(22,25,30,255);
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    background-color: #171717;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    font-weight: 900;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+[class$="__contenedor"] {
+    max-width: 120rem;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.navegacion__contenedor {
+    margin: 5rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.img__gim {
+    width: 15rem;
+    transition: all 0.5s ease-in-out;
+}
+
+    .img__gim:hover {
+        scale: 1.1;
+        rotate: -10deg;
+    }
+
+.links {
+    font-size: 2.5rem;
+}
+
+
+.linkadm {
+    padding: 0 2rem;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.apuntador {
+    border-bottom: 2px #d3a007 solid;
+}
+
+.principal {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 5rem;
+}
+
+.imagen,
+.info {
+    padding: 2rem;
+}
+
+.card__padre {
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imagen {
+    background-color: #E7B10A;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info {
+    background: white;
+    flex-grow: 1;
+}
+
+
+.card__padre:hover {
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.card__padre {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.card__inf {
+    text-align: center;
+    color: white;
+    background: #d3a007;
+    opacity: .9;
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.principal {
+    margin: 10rem 0;
+}
+
+.link2 {
+    color: white;
+    font-size: 2rem;
+    padding: 1.5rem;
+    transition: all 0.5s ease;
+}
+
+.linkadm:hover {
+    color: var(--dorado);
+    font-size: 3.5rem;
+}
+
+.link2:hover {
+    color: var(--dorado);
+    font-size: 3.5rem;
+}
+
+.icono {
+    transition: all 0.5s ease;
+}
+
+    .icono:hover {
+        stroke: var(--dorado);
+    }
+
+.cartaseccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cartaseccion {
+    background-color: var(--negroSalton);
+}
+
+
+.info__cartaseccion {
+    padding: 4rem 6rem;
+}
+
+.informacion__seccion {
+    text-align: center;
+    color: white;
+}
+
+.heading__seccion {
+    font-size: 4rem;
+}
+
+.inf__seccion {
+    font-size: 2rem;
+    text-align: justify;
+}
+
+.imagenes__contenedor {
+    margin: 7rem auto;
+}
+
+.instalaciones__heading {
+    text-align: center;
+    font-size: 5rem;
+    color: transparent;
+    -webkit-text-stroke: 0.2px var(--amarillo);
+    margin-bottom: 4rem;
+}
+
+.contenedorImagenes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 4rem;
+}
+
+.contenedor__cardImgGim {
+    padding: 1rem;
+    background-color: var(--negroSalton);
+    overflow: hidden;
+}
+
+.cardImgGim {
+    transition: all 0.5s ease;
+}
+
+    .cardImgGim:hover {
+        scale: 1.2;
+    }
+
+
+.contenedor__cardImgGim:nth-child(1) {
+    rotate: -4deg;
+    margin-top: 3rem;
+}
+
+.contenedor__cardImgGim:nth-child(3) {
+    rotate: 4deg;
+    margin-top: 3rem;
+}
+
+.heading__comentario {
+    text-align: center;
+    font-size: 5rem;
+    color: transparent;
+    -webkit-text-stroke: 0.2px var(--amarillo);
+    margin-bottom: 4rem;
+}
+
+
+.recomendacion__grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 4rem;
+}
+
+.recomendacion {
+    background-color: var(--negroSalton);
+    color: white;
+    padding: 2rem 2rem 2rem 4rem;
+    margin-bottom: 3rem;
+    border-left: 20px solid #6b6e6f;
+    transition: all 0.3s ease-in;
+}
+
+    .recomendacion:hover {
+        transform: scale(1.1);
+        box-shadow: -1px 8px 7px 0px rgba(0,0,0,0.61);
+        -webkit-box-shadow: -1px 8px 7px 0px rgba(0,0,0,0.61);
+        -moz-box-shadow: -1px 8px 7px 0px rgba(0,0,0,0.61);
+    }
+
+
+.recomendacion__texto {
+    text-align: justify;
+}
+
+.reaccion {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reaction {
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+    .reaction:hover {
+        stroke: red;
+    }
+
+.gimnasiosSelect__contenedor {
+    margin: 7rem auto;
+}
+
+
+.gim__grid {
+    margin: 5rem 0 5rem 0;
+}
+
+
+.gim__grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 3rem;
+}
+
+
+.gim {
+    max-width: unset;
+    margin: 0;
+}
+
+.gim__imagen {
+    height: 100%;
+    object-fit: cover;
+    border: 0.5rem solid #171717;
+    transition: all 0.3s;
+}
+
+    .gim__imagen:hover {
+        transform: rotate(4deg) scale(1.2);
+    }
+
+.gim__contenido {
+    max-width: 80%;
+    margin: 0 auto;
+    background-color: var(--negroSalton);
+    transform: translateY(-5rem);
+    color: white;
+    text-align: center;
+}
+
+.gim__boton {
+    display: block;
+    background-color: white;
+    color: var(--negroSalton);
+    padding: 1rem 0;
+    font-size: 2rem;
+}
+
+.gim__heading {
+    padding: 3rem 2rem;
+}
+
+.anunciate {
+    margin-top: 20rem;
+    margin-bottom: 10rem;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../Image/people-2572265.jpg);
+    background-position: center;
+    background-size: cover;
+    padding: 10rem 0;
+    background-attachment: fixed;
+}
+
+.anunciate__heading {
+    color: white;
+    text-align: center;
+}
+
+.anunciate__texto {
+    max-width: 50rem;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    line-height: 2;
+    padding: 3rem 0;
+    font-weight: 300;
+}
+
+.footer {
+    background-color: var(--negroSalton);
+    padding: 1rem 0;
+}
+
+.footer__info {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+}
+
+.footer {
+    background-color: var(--negroSalton);
+    padding: 15rem 0 0 0;
+    position: relative;
+    margin-top: 5rem;
+}
+
+.copy {
+    background-color: var(--negroSalton);
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-top: 5rem;
+    padding: 1rem 0;
+}
+
+.footer::before {
+    content: "";
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #171717;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.footer__nav {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.principal_mod {
+    grid-column: 1/3;
+}
+
+
+
+/*PAGINA DE GIMNASIO*/
+
+.imagenLogoGim {
+    margin: auto;
+}
+
+.gimnasiospg__grid {
+    margin: 10rem 0;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5rem;
+}
+
+.categoriasTi__titulo {
+    text-align: center;
+    color: #F6F1E9;
+}
+
+.gimnasios__card {
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.gimnasios__titulo {
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 3rem;
+    color: #d3a007;
+}
+
+
+.gimnasios__contenido {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.head__mod {
+    color: #FFD93D;
+    font-size: 2rem;
+}
+
+.card--mod {
+    color: white;
+}
+
+
+.precio__adulto {
+    margin: 0;
+}
+
+.boton__order {
+    display: block;
+    margin: 2rem;
+    padding: 1rem 0;
+    background-color: transparent;
+    border: 1px solid #FFD93D;
+    color: #FFD93D;
+    border-radius: 2rem;
+    transition: all 0.5s;
+}
+
+    /*HOVERS DE LA PAG DE GIMANASIOS*/
+
+    .boton__order:hover {
+        background-color: #FFD93D;
+        color: var(--negroSalton);
+    }
+
+.linkPagGim:hover {
+    scale: 1.1;
+}
+
+.gimnasios__card:hover {
+    scale: 1.1;
+    background-color: #20262E;
+    padding: 1rem 0;
+    border-radius: 3rem;
+}
+
+.head__mod {
+    color: #FFD93D;
+    font-size: 2rem;
+}
+
+.card--mod {
+    color: white;
+}

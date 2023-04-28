@@ -17,8 +17,8 @@ namespace FindMyGym.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CLIENTE()
         {
-            this.COMENTARIO = new HashSet<COMENTARIO>();
-            this.CONTACTO = new HashSet<CONTACTO>();
+            this.COMENTARIOs = new HashSet<COMENTARIO>();
+            this.CONTACTOes = new HashSet<CONTACTO>();
         }
     
         public int ID_CLIENTE { get; set; }
@@ -34,8 +34,8 @@ namespace FindMyGym.Models
     
         public virtual ACCESO ACCESO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMENTARIO> COMENTARIO { get; set; }
+        public virtual ICollection<COMENTARIO> COMENTARIOs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CONTACTO> CONTACTO { get; set; }
+        public virtual ICollection<CONTACTO> CONTACTOes { get; set; }
     }
 }
